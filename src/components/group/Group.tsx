@@ -1,12 +1,11 @@
-import GroupListItem from "../group_list_item/GroupListItem";
-import './group.style.scss'
+// type Props = {}
+import { useParams } from 'react-router-dom'
 
-export default function Group() {
-  return (
-    <ul>
-      <GroupListItem description="Muck muck" groupName="Opucuk"/>
-      <GroupListItem description="Muck muck" groupName="Opucuk"/>
-      <GroupListItem description="Muck muck" groupName="Opucuk"/>
-    </ul>
-  )
+function Group() {
+  const { group } = useParams()
+  console.log(group);
+  
+  return <div>{group}</div>
 }
+
+export default Group

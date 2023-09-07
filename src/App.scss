@@ -1,17 +1,24 @@
-$primary-color: #3493D6;
-$secondary-color:#262627;
-*{
+$primary-color: #3493d6;
+$secondary-color: #262627;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap');
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   list-style: none;
+  font-family: 'Poppins', sans-serif;
 }
+a{
+  text-decoration: none;
+  color: #262627;
+
+}
+
 #root {
   height: 920px;
   max-width: 400px;
   margin: 10px auto;
   text-align: center;
-  background-color: #FFF;
+  background-color: #a1a1a1;
   border: 1px solid #262627;
 }
-

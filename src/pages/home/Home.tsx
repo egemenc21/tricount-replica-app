@@ -1,11 +1,14 @@
+import { Route, Routes } from 'react-router-dom'
+import HomePreview from '../../components/home-preview/HomePreview'
 import Group from '../../components/group/Group'
-import Navigation from '../../components/navigation/Navigation'
 
 function Home() {
   return (
     <div>
-      <Navigation />
-      <Group />
+      <Routes>
+        <Route index element={<HomePreview />} />
+        <Route path=":group" element={<Group/>} />   
+      </Routes>
     </div>
   )
 }
