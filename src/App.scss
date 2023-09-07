@@ -1,0 +1,17 @@
+$primary-color: #3493D6;
+$secondary-color:#262627;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+#root {
+  height: 920px;
+  max-width: 400px;
+  margin: 10px auto;
+  text-align: center;
+  background-color: #FFF;
+  border: 1px solid #262627;
+}
+
