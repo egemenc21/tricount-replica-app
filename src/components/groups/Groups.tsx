@@ -1,9 +1,9 @@
-import GroupListItem from "../group_list_item/GroupListItem";
-import './group.style.scss'
+import GroupListItem from "../group-list-item/GroupListItem";
+import './groups.style.scss'
 
-export default function Group() {
+export default function Groups() {
   return (
-    <ul>
+    <ul className="groups-list">
       <GroupListItem description="Muck muck" groupName="Öpücük"/>
       <GroupListItem description="Muck muck" groupName="Öpücük"/>
       <GroupListItem description="Muck muck" groupName="Öpücük"/>

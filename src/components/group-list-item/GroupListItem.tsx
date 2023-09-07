@@ -11,7 +11,7 @@ function GroupListItem({
 }: GroupListItemProps) {
   return (
     <Link to="asdf">
-      <li>
+      <li className="group-list-item">
         <h1>{groupName}</h1>
         <p>{description}</p>
       </li>

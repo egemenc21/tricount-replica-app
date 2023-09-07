@@ -6,12 +6,12 @@ import './navigation.style.scss'
 
 export default function Navigation() {
   return (
-    <header>
+    <nav>
       <img src={tricountLogo} alt="tricountLogo" />
       <div className='icon-container'>
         <FaCrown size={20} />
         <BsThreeDotsVertical size={20} />
       </div>
-    </header>
+    </nav>
   )
 }
