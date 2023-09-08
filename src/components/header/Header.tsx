@@ -6,10 +6,13 @@ import HeaderList from '../header-list/HeaderList'
 
 interface HeaderProps {
   title: string
-  description: string
+  participators: string
+  groupName: string
 }
 
-function Header({ title, description }: HeaderProps) {
+function Header({ title, participators, groupName }: HeaderProps) {
+  console.log(groupName);
+  
   return (
     <header className="header">
       <div>
@@ -19,7 +22,7 @@ function Header({ title, description }: HeaderProps) {
           </Link>
           <div className="header-information">
             <h1>{title}</h1>
-            <p>{description}</p>
+            <p>{participators}</p>
           </div>
         </div>
         <div className="icon-container">
@@ -28,7 +31,7 @@ function Header({ title, description }: HeaderProps) {
           <BsThreeDotsVertical size={25} />
         </div>
       </div>
-      <HeaderList />
+      <HeaderList routeName={groupName} />
     </header>
   )
 }

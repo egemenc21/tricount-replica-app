@@ -4,13 +4,20 @@ import Header from '../header/Header'
 import Expenses from '../expenses/Expenses'
 import Balances from '../balances/Balances'
 
-function Group() {
-  const { group } = useParams()
+type GroupRouteParams = {
+  group: string
+}
+interface GroupParams {
+  title: string
+  participators: string
+}
+function Group({ title = 'Opucuk', participators = 'ege, julie' }: GroupParams) {
+  const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
   console.log(group)
 
   return (
     <>
-      <Header title="Opucuk" description="egemencelik,julie" />
+      <Header title={title} participators={participators} groupName={group} />
       <Routes>
         <Route path="expenses/*" element={<Expenses />} />
         <Route path="balances" element={<Balances />} />

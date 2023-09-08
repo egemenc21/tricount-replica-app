@@ -7,7 +7,7 @@ import './balances.styles.scss'
 function Balances() {
   return (
     <>
-      <ul>
+      <ul className='balances-container'>
         <BalancesListItem money={150} />
         <BalancesListItem money={-150} />
       </ul> 

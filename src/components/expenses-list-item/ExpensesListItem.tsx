@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import './expense-list-item.style.scss'
+import './expense-list-item.styles.scss'
 import {BsCurrencyEuro} from "react-icons/bs"
 
 interface ExpensesListItemProps {

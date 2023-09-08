@@ -1,12 +1,16 @@
 import { NavLink } from 'react-router-dom'
-import './header-list.style.scss'
+import './header-list.styles.scss'
 import { CgMenuBoxed, CgArrowsExchange } from 'react-icons/cg'
 
-function HeaderList() {
+interface HeaderListProps{
+  routeName:string
+}
+
+function HeaderList({routeName}:HeaderListProps) {
   return (
     <ul className="header-list">
       <NavLink
-        to="/groupname/expenses"
+        to={`/${routeName}/expenses`}
         className={({ isActive }) => (isActive ? 'active' : 'de-active')}
       >
         <li className="header-list-item">
@@ -16,7 +20,7 @@ function HeaderList() {
       </NavLink>
 
       <NavLink
-        to="/groupname/balances"
+        to={`/${routeName}/balances`}
         className={({ isActive }) => (isActive ? 'active' : 'de-active')}
       >
         <li className="header-list-item">
