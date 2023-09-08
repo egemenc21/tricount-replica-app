@@ -1,0 +1,26 @@
+.balances-list-container {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  background-color: white;
+  padding: 0.5rem;
+  border-bottom: 0.5px solid #515354;
+}
+.balances-money {
+  padding: 5px;
+  flex-basis: 50%;
+  text-align: end;
+  border-radius: 5px;
+}
+.debt {
+  background-color: #9e2525;
+}
+.rich {
+  background-color: #259e4f;
+  order: 1;
+}
+.balances-user {
+  padding: 5px;
+  text-align: start;
+  flex-basis: 50%;
+}

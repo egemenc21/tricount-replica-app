@@ -1,3 +1,7 @@
+$primary-color: #3493d6;
+$secondary-color: #262627;
+$third-color:#0c5183;
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap');
 * {
   margin: 0;
@@ -14,6 +18,11 @@ h1 {
   font-size: 1.2rem;
   font-weight: 400;
 }
+h3{
+  font-size: 1rem;
+  font-weight: 400;
+}
+
 
 #root {
   height: 920px;

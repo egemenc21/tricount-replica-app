@@ -10,7 +10,7 @@ function GroupListItem({
   description = 'No Description',
 }: GroupListItemProps) {
   return (
-    <Link to="asdf">
+    <Link to={`groupname${'/expenses'}`}>
       <li className="group-list-item">
         <h1>{groupName}</h1>
         <p>{description}</p>

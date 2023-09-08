@@ -1,17 +1,21 @@
 // type Props = {}
-import { useParams } from 'react-router-dom'
+import { Route, Routes, useParams } from 'react-router-dom'
 import Header from '../header/Header'
-import Groups from '../groups/Groups'
+import Expenses from '../expenses/Expenses'
+import Balances from '../balances/Balances'
 
 function Group() {
   const { group } = useParams()
   console.log(group)
 
   return (
-    <div>
+    <>
       <Header title="Opucuk" description="egemencelik,julie" />
-      <Groups/>
-    </div>
+      <Routes>
+        <Route path="expenses/*" element={<Expenses />} />
+        <Route path="balances" element={<Balances />} />
+      </Routes>
+    </>
   )
 }
 

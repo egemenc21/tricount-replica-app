@@ -1,0 +1,28 @@
+.expenses-list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  list-style: none;
+  border-bottom: 0.5px solid #515354;
+  background-color: white;
+  .expenses-information {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+  .expenses-heading,
+  .expenses-price {
+    color: #0c5183;
+  }
+  .expenses-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .expenses-date{
+    opacity: 70%;
+  }
+  span {
+    font-weight: 600;
+  }
+}
