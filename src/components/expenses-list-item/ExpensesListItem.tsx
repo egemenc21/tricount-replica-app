@@ -1,32 +1,34 @@
 import { Link } from 'react-router-dom'
 import './expense-list-item.styles.scss'
 import {BsCurrencyEuro} from "react-icons/bs"
+import { formatDate } from '../../utils/string/string.utils'
 
 interface ExpensesListItemProps {
-  expenseName: string
+  title: string
   paidBy: string
   price: number
   date: string
 }
 function ExpensesListItem({
-  expenseName,
+  title,
   paidBy,
   price,
   date,
 }: ExpensesListItemProps) {
-  const urlWithoutSpaces = expenseName.replace(/\s+/g, '').toLocaleLowerCase()
+  const urlWithoutSpaces = title.replace(/\s+/g, '').toLocaleLowerCase()
+  const formattedDate = formatDate(new Date(date))
   return (
     <Link to={urlWithoutSpaces}>
       <li className="expenses-list-item">
         <div className="expenses-information">
-          <h1 className="expenses-heading">{expenseName}</h1>
+          <h1 className="expenses-heading">{title}</h1>
           <p>
             paid by <span>{paidBy}</span>
           </p>
         </div>
         <div>
           <div className="expenses-price"><BsCurrencyEuro size={17}/>{price}</div>
-          <div className="expenses-date">{date}</div>
+          <div className="expenses-date">{formattedDate}</div>
         </div>
       </li>
     </Link>

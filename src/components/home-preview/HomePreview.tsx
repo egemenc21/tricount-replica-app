@@ -1,7 +1,7 @@
-// interface HomePreviewProps {
-
 import Groups from '../groups/Groups'
-import Navigation from '../navigation/Navigation'
+import Navigation from '../../layout/navigation/Navigation'
+
+// interface HomePreviewProps {
 
 // }
 

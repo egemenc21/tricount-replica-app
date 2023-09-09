@@ -1,0 +1,28 @@
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  width: 100%;
+  position: relative;
+  div {
+  }
+  .btn {
+    width: 13%;
+    border: 1px solid #3493d6;
+    transition: 0.7s;
+  }
+  .btn:hover {
+    border: 1px solid #000000;
+    transition: 0.7s;
+    cursor: pointer;
+  }
+  .add-expense {
+    position: absolute;
+    left: 44%;
+    bottom: 30px;
+    padding: 1rem;
+    border-radius: 99999px;
+    background-color: #3493d6;
+  }
+}

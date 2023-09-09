@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './footer.styles.scss'
 
 // interface FooterProps {
@@ -11,7 +12,11 @@ function Footer() {
         <h5>MY TOTAL</h5>
         <span>666</span>
       </div>
-      <span className="add-expense">+</span>
+      <Link to="/">
+        <button type="button" className="btn add-expense">
+          +
+        </button>
+      </Link>
       <div>
         <h5>TOTAL EXPENSES</h5>
         <span>666</span>

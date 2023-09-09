@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import './group-list-item.styles.scss'
+import { stringConverter } from '../../utils/string/string.utils'
 
 interface GroupListItemProps {
   groupName: string
@@ -9,7 +10,7 @@ function GroupListItem({
   groupName,
   description = 'No Description',
 }: GroupListItemProps) {
-  const routeName = groupName.toLowerCase().trim().split(' ')
+  const routeName = stringConverter(groupName)
 
   return (
     <Link to={`${routeName}/expenses`}>

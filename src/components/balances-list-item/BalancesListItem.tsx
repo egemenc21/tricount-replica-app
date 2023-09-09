@@ -2,19 +2,18 @@ import './balances-list-item.styles.scss'
 
 interface BalancesListItemProps {
   money: number
+  user:string
 }
 
-function BalancesListItem({ money }: BalancesListItemProps) {
-  console.log(money)
+function BalancesListItem({ money, user }: BalancesListItemProps) {
   const isDebt = money < 0
 
   return (
     <li className="balances-list-container">
       <div className={`balances-money ${isDebt ? 'debt' : 'rich'}`}>
-        {' '}
         {money * +1}$
       </div>
-      <h3 className="balances-user">user</h3>
+      <h3 className="balances-user">{user}</h3>
     </li>
   )
 }

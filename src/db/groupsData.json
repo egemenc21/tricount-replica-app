@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "groupName": "Opucuk",
+    "description": "muck, muck",
+    "participators": ["ege", "julie"],
+    "expenses": [
+      {
+        "id": 1,
+        "title": "Atelier des lumières",
+        "price": 22,
+        "date": "2023-09-09T10:26:06.447Z",
+        "paidBy": "julie",
+        "forWhom": ["ege", "julie"]
+      },
+      {
+        "id": 2,
+        "title": "Billa + Etsan",
+        "price": 12,
+        "date": "2023-09-09T10:26:06.447Z",
+        "paidBy": "julie",
+        "forWhom": ["ege"]
+      },
+      {
+        "id": 3,
+        "title": "Ice Cream",
+        "price": 4.6,
+        "date": "2023-09-09T10:26:06.447Z",
+        "paidBy": "ege",
+        "forWhom": ["julie"]
+      },
+      {
+        "id": 4,
+        "title": "Ice Cream",
+        "price": 4.6,
+        "date": "2023-09-09T10:26:06.447Z",
+        "paidBy": "ege",
+        "forWhom": ["julie"]
+      },
+      {
+        "id": 5,
+        "title": "Ice Cream",
+        "price": 4.6,
+        "date": "2023-09-09T10:26:06.447Z",
+        "paidBy": "ege",
+        "forWhom": ["julie"]
+      }
+      
+    ]
+  },
+  {
+    "id": 2,
+    "groupName": "Op Op",
+    "description": "olley",
+    "participators": ["ege", "julie", "umut"]
+  },
+  {
+    "id": 3,
+    "groupName": "laylaylom",
+    "description": "cok guzel",
+    "participators": ["ege", "julie"]
+  },
+  {
+    "id": 4,
+    "groupName": "tricount-group-example",
+    "description": "nice app",
+    "participators": ["ege", "julie"]
+  },
+  {
+    "id": 5,
+    "groupName": "you always owe me",
+    "description": "woww im rich",
+    "participators": ["ege", "julie"]
+  }
+]

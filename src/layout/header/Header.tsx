@@ -2,17 +2,14 @@ import './header.styles.scss'
 import { AiOutlineArrowLeft, AiOutlineSearch, AiFillBell } from 'react-icons/ai'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
-import HeaderList from '../header-list/HeaderList'
+import HeaderList from '../../components/header-list/HeaderList'
 
 interface HeaderProps {
-  title: string
-  participators: string
+  participators?: string[]
   groupName: string
 }
 
-function Header({ title, participators, groupName }: HeaderProps) {
-  console.log(groupName);
-  
+function Header({ participators, groupName }: HeaderProps) {
   return (
     <header className="header">
       <div>
@@ -21,8 +18,11 @@ function Header({ title, participators, groupName }: HeaderProps) {
             <AiOutlineArrowLeft size={25} />
           </Link>
           <div className="header-information">
-            <h1>{title}</h1>
-            <p>{participators}</p>
+            <h1>{groupName}</h1>
+            <p>
+              {participators &&
+                participators.toString().replace(/,/g, ', ').trim()}
+            </p>
           </div>
         </div>
         <div className="icon-container">
