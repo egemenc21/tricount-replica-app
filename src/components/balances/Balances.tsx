@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import BalancesListItem from '../balances-list-item/BalancesListItem'
 import WhoOwesWho, { OwesData } from '../who-owes-who/WhoOwesWho'
 import './balances.styles.scss'
@@ -7,7 +8,7 @@ import calculateBalances, {
 
 function Balances({ participators, expenses }: BalancesProps) {
   const balances = calculateBalances({ participators, expenses })
-  
+
   // Initialize an empty array to store owesData
   const owesData: OwesData[] = []
 
@@ -21,8 +22,11 @@ function Balances({ participators, expenses }: BalancesProps) {
       if (balanceA < 0 && balanceB > 0) {
         const amount = Math.min(Math.abs(balanceA), balanceB)
 
+        const id = nanoid()
+
         // Append the data to owesData
         owesData.push({
+          id,
           debtor: participantA,
           creditor: participantB,
           amount,
