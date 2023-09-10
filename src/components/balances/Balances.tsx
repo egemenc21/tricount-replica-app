@@ -7,14 +7,18 @@ import calculateBalances, {
 
 function Balances({ participators, expenses }: BalancesProps) {
   const balances = calculateBalances({ participators, expenses })
+console.log(Object.keys(balances));
 
-  console.log(balances, participators)
 
   return (
     <>
       <ul className="balances-container">
         {Object.keys(balances).map((participant) => (
-          <BalancesListItem key={participant}  money={balances[participant]} user={participant} />
+          <BalancesListItem
+            key={participant}
+            money={balances[participant]}
+            user={participant}
+          />
         ))}
       </ul>
       <div>HOW SHOULD I BALANCE ?</div>

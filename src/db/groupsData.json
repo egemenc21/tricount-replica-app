@@ -45,31 +45,51 @@
         "paidBy": "ege",
         "forWhom": ["julie"]
       }
-      
     ]
   },
   {
     "id": 2,
     "groupName": "Op Op",
     "description": "olley",
-    "participators": ["ege", "julie", "umut"]
+    "participators": ["ege", "julie", "umut"],
+    "expenses": [
+      {
+        "id": 1,
+        "title": "Atelier des lumières",
+        "price": 22,
+        "date": "2023-09-09T10:26:06.447Z",
+        "paidBy": "julie",
+        "forWhom": ["ege", "julie", "umut"]
+      },
+      {
+        "id": 2,
+        "title": "Billa + Etsan",
+        "price": 12,
+        "date": "2023-09-09T10:26:06.447Z",
+        "paidBy": "julie",
+        "forWhom": ["ege", "julie"]
+      }
+    ]
   },
   {
     "id": 3,
     "groupName": "laylaylom",
     "description": "cok guzel",
-    "participators": ["ege", "julie"]
+    "participators": ["ege", "julie"],
+    "expenses": []
   },
   {
     "id": 4,
     "groupName": "tricount-group-example",
     "description": "nice app",
-    "participators": ["ege", "julie"]
+    "participators": ["ege", "julie"],
+    "expenses": []
   },
   {
     "id": 5,
     "groupName": "you always owe me",
     "description": "woww im rich",
-    "participators": ["ege", "julie"]
+    "participators": ["ege", "julie"],
+    "expenses": []
   }
 ]

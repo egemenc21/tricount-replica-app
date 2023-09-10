@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import './group-list-item.styles.scss'
-import { stringConverter } from '../../utils/string/string.utils'
+import { stringConverter } from '../../utils/format/format.utils'
 
 interface GroupListItemProps {
   groupName: string

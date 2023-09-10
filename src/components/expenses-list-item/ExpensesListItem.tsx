@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import './expense-list-item.styles.scss'
-import {BsCurrencyEuro} from "react-icons/bs"
-import { formatDate } from '../../utils/string/string.utils'
+import { BsCurrencyEuro } from 'react-icons/bs'
+import { formatDate } from '../../utils/format/format.utils'
 
 interface ExpensesListItemProps {
   title: string
@@ -27,7 +27,10 @@ function ExpensesListItem({
           </p>
         </div>
         <div>
-          <div className="expenses-price"><BsCurrencyEuro size={17}/>{price}</div>
+          <div className="expenses-price">
+            <BsCurrencyEuro size={17} />
+            {price}
+          </div>
           <div className="expenses-date">{formattedDate}</div>
         </div>
       </li>
