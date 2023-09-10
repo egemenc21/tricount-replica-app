@@ -1,5 +1,5 @@
 import BalancesListItem from '../balances-list-item/BalancesListItem'
-import WhoOwesWho from '../who-owes-who/WhoOwesWho'
+import WhoOwesWho, { OwesData } from '../who-owes-who/WhoOwesWho'
 import './balances.styles.scss'
 import calculateBalances, {
   BalancesProps,
@@ -7,8 +7,29 @@ import calculateBalances, {
 
 function Balances({ participators, expenses }: BalancesProps) {
   const balances = calculateBalances({ participators, expenses })
-console.log(Object.keys(balances));
+  
+  // Initialize an empty array to store owesData
+  const owesData: OwesData[] = []
 
+  // Iterate through balances
+  Object.keys(balances).forEach((participantA) => {
+    Object.keys(balances).forEach((participantB) => {
+      const balanceA = balances[participantA]
+      const balanceB = balances[participantB]
+
+      // Check if participantA owes money to participantB
+      if (balanceA < 0 && balanceB > 0) {
+        const amount = Math.min(Math.abs(balanceA), balanceB)
+
+        // Append the data to owesData
+        owesData.push({
+          debtor: participantA,
+          creditor: participantB,
+          amount,
+        })
+      }
+    })
+  })
 
   return (
     <>
@@ -22,7 +43,7 @@ console.log(Object.keys(balances));
         ))}
       </ul>
       <div>HOW SHOULD I BALANCE ?</div>
-      <WhoOwesWho user="ege" owesTo="julie" />
+      <WhoOwesWho owesData={owesData} />
     </>
   )
 }
