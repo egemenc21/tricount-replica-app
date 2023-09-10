@@ -1,6 +1,6 @@
 import GroupListItem from '../group-list-item/GroupListItem'
 import './groups.styles.scss'
-import groupsData from '../../db/groupsData.json'
+import groupsData from '../../../public/db/groupsData.json'
 
 export default function Groups() {
   return (

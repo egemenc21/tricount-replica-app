@@ -3,16 +3,16 @@ import { AiOutlineArrowLeft, AiOutlineSearch, AiFillBell } from 'react-icons/ai'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import HeaderList from '../../components/header-list/HeaderList'
-import { useAppSelector } from '../../hooks'
-import selectEachGroup from '../../store/group/ecah-group.selector'
+import { Group } from '../../store/groups/groups.types'
+
 
 interface HeaderProps { 
   currentPath: string
+  eachGroup: Group
 }
 
-function Header({ currentPath }: HeaderProps) {
-  const { value } = useAppSelector(selectEachGroup)
-  console.log(value)
+function Header({ currentPath,eachGroup }: HeaderProps) {
+  const {groupName, participators} = eachGroup
 
   return (
     <header className="header">
@@ -22,10 +22,10 @@ function Header({ currentPath }: HeaderProps) {
             <AiOutlineArrowLeft size={25} />
           </Link>
           <div className="header-information">
-            <h1>{value.groupName}</h1>
+            <h1>{groupName}</h1>
             <p>
               {participators &&
-                value.participators.toString().replace(/,/g, ', ').trim()}
+                participators.toString().replace(/,/g, ', ').trim()}
             </p>
           </div>
         </div>

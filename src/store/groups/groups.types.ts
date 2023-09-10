@@ -14,3 +14,6 @@ export interface Group {
     participators: string[];
     expenses: Expense[];
 }
+export interface GroupMap  {
+    [key:string]:Group;
+  }
