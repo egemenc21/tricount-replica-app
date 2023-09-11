@@ -6,9 +6,11 @@ import Navigation from '../../layout/navigation/Navigation'
 // }
 
 export default function HomePreview() {
+
+
   return (
     <>
-      <Navigation />
+      <Navigation/>
       <Groups />
     </>
   )

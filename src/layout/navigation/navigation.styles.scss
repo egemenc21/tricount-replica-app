@@ -9,6 +9,9 @@ nav {
     display: flex;    
     align-items: center;
     gap: 10px;
+    .username{
+      color: white;
+    }
   }
   img {
     min-width: 100px;

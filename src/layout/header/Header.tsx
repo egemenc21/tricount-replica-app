@@ -18,7 +18,7 @@ function Header({ currentPath,eachGroup }: HeaderProps) {
     <header className="header">
       <div>
         <div className="header-information-group">
-          <Link to="/">
+          <Link to="/home">
             <AiOutlineArrowLeft size={25} />
           </Link>
           <div className="header-information">

@@ -10,7 +10,7 @@ function HeaderList({ currentPath }: HeaderListProps) {
   return (
     <ul className="header-list">
       <NavLink
-        to={`/${currentPath}/expenses`}
+        to={`/home/${currentPath}`} end
         className={({ isActive }) => (isActive ? 'active' : 'de-active')}
       >
         <li className="header-list-item">
@@ -20,7 +20,7 @@ function HeaderList({ currentPath }: HeaderListProps) {
       </NavLink>
 
       <NavLink
-        to={`/${currentPath}/balances`}
+        to={`/home/${currentPath}/balances`}
         className={({ isActive }) => (isActive ? 'active' : 'de-active')}
       >
         <li className="header-list-item">

@@ -13,7 +13,7 @@ function GroupListItem({
   const routeName = stringConverter(groupName)
 
   return (
-    <Link to={`${routeName}/expenses`}>
+    <Link to={`${routeName}`}>
       <li className="group-list-item">
         <h1>{groupName}</h1>
         <p>{description}</p>
