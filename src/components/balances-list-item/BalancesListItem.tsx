@@ -7,11 +7,12 @@ interface BalancesListItemProps {
 
 function BalancesListItem({ money, user }: BalancesListItemProps) {
   const isDebt = money < 0
+  const positiveAmount = money * +1
 
   return (
     <li className="balances-list-container">
       <div className={`balances-money ${isDebt ? 'debt' : 'rich'}`}>
-        {money * +1}$
+        {positiveAmount.toFixed(1)}$
       </div>
       <h3 className="balances-user">{user}</h3>
     </li>

@@ -1,3 +1,4 @@
+import WhoOwesWhoItem from '../who-owes-who-item/WhoOwesWhoItem'
 import './who-owes-who.styles.scss'
 
 export interface OwesData {
@@ -17,14 +18,7 @@ function WhoOwesWho({ owesData }: WhoOwesWhoProps) {
       <h2>Who Owes Who</h2>
       <ul>
         {owesData.map((entry) => (
-          <div key={entry.id} className="who-owes-container">
-            <div className="who-owes-who">
-              <span className="who-owes-debtor">{entry.debtor}</span>
-              <span>owes</span>
-              <span className="who-owes-creditor">{entry.creditor}</span>
-            </div>
-            <div>{entry.amount}</div>
-          </div>
+          <WhoOwesWhoItem key={entry.id} entry={entry}/>
         ))}
       </ul>
     </div>

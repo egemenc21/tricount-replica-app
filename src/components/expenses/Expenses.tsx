@@ -11,7 +11,7 @@ export interface ExpensesDataParams {
   forWhom: string[]
 }
 type ExpensesProps = {
-  expensesData?: ExpensesDataParams[] // Ensure this matches the prop name in your component
+  expensesData: ExpensesDataParams[] // Ensure this matches the prop name in your component
 }
 
 function Expenses(props: ExpensesProps) {

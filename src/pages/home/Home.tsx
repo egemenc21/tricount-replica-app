@@ -7,6 +7,7 @@ import { setGroups } from '../../store/groups/groups.reducer'
 import fetchGroupsData from '../../utils/db/db'
 
 function Home() {
+  
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -17,6 +18,8 @@ function Home() {
     }
     getGroups()
   }, [dispatch])
+
+
 
   return (
     <Routes>
