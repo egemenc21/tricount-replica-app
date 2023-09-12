@@ -26,6 +26,7 @@ function SignInForm() {
   //   const resetFormFields = () => {
   //     setFormFields(defaultFormFields)
   //   }
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (signUp) {
@@ -39,7 +40,7 @@ function SignInForm() {
         if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
           alert('You can not create a user, the email is already in use')
         }
-        toast.error(error.message)
+        toast.error((error as AuthError).message)
       }
     } else {
       try {
@@ -52,7 +53,7 @@ function SignInForm() {
         if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
           alert('You can not create a user, the email is already in use')
         }
-        toast.error(error.message)
+        toast.error((error as AuthError).message)
       }
     }
   }

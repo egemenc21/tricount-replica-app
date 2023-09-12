@@ -3,19 +3,19 @@ import './group-list-item.styles.scss'
 import { stringConverter } from '../../utils/format/format.utils'
 
 interface GroupListItemProps {
-  groupName: string
+  title: string
   description?: string
 }
 function GroupListItem({
-  groupName,
+  title,
   description = 'No Description',
 }: GroupListItemProps) {
-  const routeName = stringConverter(groupName)
+  const routeName = stringConverter(title)
 
   return (
     <Link to={`${routeName}`}>
       <li className="group-list-item">
-        <h1>{groupName}</h1>
+        <h1>{title}</h1>
         <p>{description}</p>
       </li>
     </Link>

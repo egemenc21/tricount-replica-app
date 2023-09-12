@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "groupName": "Opucuk",
+    "title": "Opucuk",
     "description": "muck, muck",
     "participators": ["ege", "julie"],
     "expenses": [
@@ -49,7 +49,7 @@
   },
   {
     "id": 2,
-    "groupName": "Op Op",
+    "title": "Op Op",
     "description": "olley",
     "participators": ["ege", "julie", "umut"],
     "expenses": [
@@ -73,21 +73,21 @@
   },
   {
     "id": 3,
-    "groupName": "laylaylom",
+    "title": "laylaylom",
     "description": "cok guzel",
     "participators": ["ege", "julie"],
     "expenses": []
   },
   {
     "id": 4,
-    "groupName": "tricount-group-example",
+    "title": "tricount-group-example",
     "description": "nice app",
     "participators": ["ege", "julie"],
     "expenses": []
   },
   {
     "id": 5,
-    "groupName": "you always owe me",
+    "title": "you always owe me",
     "description": "woww im rich",
     "participators": ["ege", "julie"],
     "expenses": []

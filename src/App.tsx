@@ -11,6 +11,7 @@ import Auth from './pages/auth/Auth'
 import store from './store/store'
 import { useAppDispatch } from './hooks'
 import { setCurrentUser } from './store/user/user.reducer'
+import { createUserDocumentFromAuth } from './utils/firebase/firebase.utils'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -19,14 +20,11 @@ function App() {
     const auth = getAuth()
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-
+        createUserDocumentFromAuth(user)
         dispatch(setCurrentUser(user))
-        // ...
+        
       } else {
         // User is signed out
-        // ...
       }
     })
   }, [dispatch])

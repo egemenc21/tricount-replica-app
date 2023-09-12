@@ -9,7 +9,7 @@ export interface Expense {
 
 export interface Group {
     id: number;
-    groupName: string;
+    title: string;
     description: string;
     participators: string[];
     expenses: Expense[];
@@ -17,3 +17,4 @@ export interface Group {
 export interface GroupMap  {
     [key:string]:Group;
   }
+

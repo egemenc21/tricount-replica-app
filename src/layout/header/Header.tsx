@@ -12,7 +12,7 @@ interface HeaderProps {
 }
 
 function Header({ currentPath,eachGroup }: HeaderProps) {
-  const {groupName, participators} = eachGroup
+  const {title, participators} = eachGroup
 
   return (
     <header className="header">
@@ -22,7 +22,7 @@ function Header({ currentPath,eachGroup }: HeaderProps) {
             <AiOutlineArrowLeft size={25} />
           </Link>
           <div className="header-information">
-            <h1>{groupName}</h1>
+            <h1>{title}</h1>
             <p>
               {participators &&
                 participators.toString().replace(/,/g, ', ').trim()}

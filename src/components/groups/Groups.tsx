@@ -1,14 +1,18 @@
+import { useAppSelector } from '../../hooks'
+import { selectGroups } from '../../store/groups/groups.selector'
 import GroupListItem from '../group-list-item/GroupListItem'
 import './groups.styles.scss'
-import groupsData from '../../../public/db/groupsData.json'
+
 
 export default function Groups() {
+  const groupsData = useAppSelector(selectGroups)
+  
   return (
     <ul className="groups-list">
-      {groupsData.map(({ id, groupName, description }) => (
+      {groupsData.map(({ id, title, description }) => (
         <GroupListItem
           key={id}
-          groupName={groupName}
+          title={title}
           description={description}
         />
       ))}

@@ -1,0 +1,19 @@
+[
+    {
+      "id": 1,
+      "title": "test",
+      "description": "test, test",
+      "participators": ["test", "test"],
+      "expenses": [
+        {
+          "id": 1,
+          "title": "test",
+          "price": 22,
+          "date": "2023-09-09T10:26:06.447Z",
+          "paidBy": "test",
+          "forWhom": ["test", "test"]
+        }
+      ]
+    }    
+  ]
+  
