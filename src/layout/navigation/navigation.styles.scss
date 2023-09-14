@@ -4,18 +4,20 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 80px;
   .icon-container {
     color: white;
     display: flex;    
     align-items: center;
     gap: 10px;
-    .username{
-      color: white;
-    }
+    
   }
   img {
-    min-width: 100px;
-    max-width: 35%;
+    width: 150px;
+    max-width: 200px;
     padding: 1rem;
   }  
+}
+@media(max-width:768px){
+
 }

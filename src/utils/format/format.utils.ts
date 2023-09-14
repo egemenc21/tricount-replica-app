@@ -4,14 +4,10 @@ export const stringConverter = (string: string) => {
 }
 
 export const formatDate = (date: Date) => {
-    const day = date.getDate()
-    const month = date.getMonth() + 1 // Months are zero-based, so we add 1
-    const year = date.getFullYear()
-
-    // Ensure day and month are displayed with two digits
-    const formattedDay = String(day).padStart(2, '0')
-    const formattedMonth = String(month).padStart(2, '0')
-
-    return `${formattedDay}/${formattedMonth}/${year}`
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
 }
+
 

@@ -9,10 +9,8 @@ import {
   selectGroupsIsLoading,
   selectGroupsMap,
 } from '../../store/groups/groups.selector'
-
-type GroupRouteParams = {
-  group: string
-}
+import { GroupRouteParams } from '../header-list/HeaderList'
+import AddExpense from '../add-expense/AddExpense'
 
 function EachGroup() {
   const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
@@ -28,11 +26,13 @@ function EachGroup() {
     <p>LOADING</p>
   ) : (
     eachGroup && (
-      <>
-        <Header currentPath={group} eachGroup={eachGroup} />
-        <Routes>
+      <Routes>
+        <Route
+          path="/"
+          element={<Header eachGroup={eachGroup} />}
+        >
           <Route
-            path="/"
+            index
             element={<Expenses expensesData={eachGroup.expenses} />}
           />
           <Route
@@ -44,8 +44,10 @@ function EachGroup() {
               />
             }
           />
-        </Routes>
-      </>
+        </Route>
+
+        <Route path="add-expense" element={<AddExpense/>} />
+      </Routes>
     )
   )
 }

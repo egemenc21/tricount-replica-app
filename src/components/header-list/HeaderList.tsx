@@ -1,16 +1,20 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import './header-list.styles.scss'
 import { CgMenuBoxed, CgArrowsExchange } from 'react-icons/cg'
 
-interface HeaderListProps {
-  currentPath: string
+
+export type GroupRouteParams = {
+  group: string
 }
 
-function HeaderList({ currentPath }: HeaderListProps) {
+
+function HeaderList() {
+  const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
+
   return (
     <ul className="header-list">
       <NavLink
-        to={`/home/${currentPath}`} end
+        to={`/home/${group}`} end
         className={({ isActive }) => (isActive ? 'active' : 'de-active')}
       >
         <li className="header-list-item">
@@ -20,7 +24,7 @@ function HeaderList({ currentPath }: HeaderListProps) {
       </NavLink>
 
       <NavLink
-        to={`/home/${currentPath}/balances`}
+        to={`/home/${group}/balances`}
         className={({ isActive }) => (isActive ? 'active' : 'de-active')}
       >
         <li className="header-list-item">

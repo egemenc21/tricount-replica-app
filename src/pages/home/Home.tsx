@@ -4,8 +4,8 @@ import HomePreview from '../../components/home-preview/HomePreview'
 import EachGroup from '../../components/each-group/EachGroup'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { selectCurrentUser } from '../../store/user/user.selector'
-
 import { fetchGroupsAsync } from '../../store/groups/groups.reducer'
+
 
 function Home() {
   const dispatch = useAppDispatch()
@@ -17,7 +17,7 @@ function Home() {
       // const groupsArray = await fetchGroupsData()
       // console.log(groupsArray)
 
-      if (user && userId) {        
+      if (userId) {        
         // await addCollectionAndDocumentsToUser('groups',groupsArray,userId)
         
         dispatch(fetchGroupsAsync(userId))
@@ -26,7 +26,7 @@ function Home() {
       
     }
     addCollection()
-  }, [dispatch, userId, user])
+  }, [dispatch, userId])
 
   return (
     <Routes>

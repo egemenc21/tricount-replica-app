@@ -1,20 +1,23 @@
-import { useState } from 'react'
-import './sign-in-form.styles.scss'
+import React, { useState } from 'react'
+import './sign-up-form.styles.scss'
 import {
-  signInWithEmailAndPassword,
   AuthError,
   AuthErrorCodes,
+  createUserWithEmailAndPassword,
 } from 'firebase/auth'
 import { toast } from 'react-toastify'
 import { auth } from '../../utils/firebase/firebase.utils'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
+// interface SignUpFormProps {
+
+// }
 
 const defaultFormFields = {
   email: '',
   password: '',
 }
 
-function SignInForm() {
+function SignUpForm() {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
@@ -22,56 +25,52 @@ function SignInForm() {
   //     setFormFields(defaultFormFields)
   //   }
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e:React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     try {
-      const data = await signInWithEmailAndPassword(auth, email, password)
+      const data = await createUserWithEmailAndPassword(auth, email, password)
       const { user } = data
       if (user) {
-        const win: Window = window
+        const win: Window = window;
         win.location = '/home'
       }
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         toast.error((error as AuthError).message)
       }
+      
     }
   }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
 
     setFormFields({ ...formFields, [name]: value })
   }
 
   return (
-    <section>
-      <h2 className="auth-title">Already have an account?</h2>
-      <span className="auth-description">
-        Sign in with your email and password
-      </span>
-      <form onSubmit={handleSubmit} className="auth-form-container">
+    <section >
+      <h2 className='auth-title'>You do not have an account?</h2>
+      <span className='auth-description'>Register with your email and password</span>
+      <form onSubmit={handleSubmit} className='auth-form-container'>
         <input
           type="email"
           name="email"
           value={email}
           onChange={handleChange}
-          required
-          className="auth-input"
+          required className='auth-input'
         />
         <input
           type="password"
           name="password"
           value={password}
           onChange={handleChange}
-          required
-          className="auth-input"
-        />
-        <Button buttonType={BUTTON_TYPE_CLASSES.base}>Sign In</Button>        
+          required className='auth-input'
+        />        
+        <Button buttonType={BUTTON_TYPE_CLASSES.inverted}>Register</Button>
       </form>
     </section>
   )
 }
 
-export default SignInForm
+export default SignUpForm

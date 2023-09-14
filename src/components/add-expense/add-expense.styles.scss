@@ -1,0 +1,61 @@
+$primary-color: #3493d6;
+$secondary-color: #262627;
+$tertiary-color: #0c5183;
+
+.add-expense-section {
+  background-color: #fff;
+  height: 100vh;
+}
+
+.add-expense-header {
+  justify-content: start;
+  padding: 0 1rem;
+  gap: 1rem;
+
+  .add-expense-heading {
+    text-align: center;
+    flex-basis: 200px;
+  }
+}
+.add-expenses-form {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  div {
+    text-align: start;
+  }
+  label {
+    width: 60%;
+  }
+  input,
+  select {
+    width: 100%;
+    border-bottom: 2px solid #a1a1a1;
+    padding: 1rem;
+    background: #fff;
+  }
+  .checkbox {
+    width: auto;
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    input {
+      display: inline;
+    }
+  }
+  input:focus,
+  select:focus {
+    border-bottom: 2px solid $tertiary-color;
+    color: $tertiary-color;
+    opacity: 1;
+  }
+
+  #date {
+    padding: 1rem;
+  }
+  @media screen and (max-width: 768px) {
+  }
+}

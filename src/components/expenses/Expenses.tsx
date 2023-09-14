@@ -16,6 +16,7 @@ type ExpensesProps = {
 
 function Expenses(props: ExpensesProps) {
   const { expensesData } = props
+  
 
   return (
     <div className="expenses-container">
@@ -34,7 +35,6 @@ function Expenses(props: ExpensesProps) {
           {!expensesData ? <p>You do not have any tricount yet</p> : null}
         </div>
       </div>
-
       <Footer />
     </div>
   )
