@@ -4,6 +4,7 @@ import { getAnalytics } from 'firebase/analytics'
 import {
   QueryDocumentSnapshot,
   addDoc,
+  arrayUnion,
   collection,
   doc,
   getDoc,
@@ -11,10 +12,12 @@ import {
   getFirestore,
   query,
   setDoc,
+  updateDoc,
   writeBatch,
 } from 'firebase/firestore'
-import { Group } from '../../store/groups/groups.types'
+import { Expense, Group } from '../../store/groups/groups.types'
 import { fetchEmptyGroupsData } from '../db/db'
+import { stringConverter } from '../format/format.utils'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCtbJvpuLUGUR0n1OUuAoE5Xe14tYlF7Rw',
@@ -68,12 +71,35 @@ export const addCollectionAndDocumentsToUser = async <T extends ObjectToAdd>(
 
   // Now add objects under the user's subcollection
   objectToAdd.forEach(async (object) => {
-    const newDocRef = doc(userCollectionRef, object.title.toLowerCase())
+    const newDocRef = doc(
+      userCollectionRef,
+      stringConverter(object.title.toLowerCase())
+    )
     batch.set(newDocRef, object)
   })
 
   await batch.commit()
   console.log('done')
+}
+export const addExpenseToCollection = async <T extends Expense>(
+  collectionKey: string,
+  objectToAdd: T,
+  userId: string,
+  groupName: string
+): Promise<void> => {
+  const groupsCollectionRef = collection(db, 'users', userId, collectionKey)
+  const groupDocRef = doc(groupsCollectionRef, groupName)
+
+  try {
+    // Use updateDoc to add the new object to the existing array
+    await updateDoc(groupDocRef, {
+      expenses: arrayUnion(objectToAdd), // Assuming "expenses" is your field
+    })
+
+    console.log('Expense added successfully')
+  } catch (error) {
+    console.error('Error adding expense: ', error)
+  }
 }
 // export const addCollectionAndDocuments = async <T extends ObjectToAdd>(
 //   collectionKey: string,

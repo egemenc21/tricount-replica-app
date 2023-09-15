@@ -1,12 +1,22 @@
-import { ExpensesDataParams } from "../../components/expenses/Expenses";
+import { Expense } from "../../store/groups/groups.types";
 
 export interface BalancesProps {
     participators: string[];
-    expenses?: ExpensesDataParams[];
+    expenses?: Expense[];
 }
 
 interface Balance {
     [participant: string]: number;
+}
+export const calculateShare = (selected: string[],price:number) => {
+  const numSelected = selected.length
+
+  if (numSelected === 0 ) {
+    return price
+  }
+
+  const share = price / numSelected
+  return share
 }
 
 export default function calculateBalances({ participators, expenses }: BalancesProps): Balance {

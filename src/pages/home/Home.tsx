@@ -5,12 +5,15 @@ import EachGroup from '../../components/each-group/EachGroup'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { selectCurrentUser } from '../../store/user/user.selector'
 import { fetchGroupsAsync } from '../../store/groups/groups.reducer'
+// import fetchGroupsData from '../../utils/db/db'
+// import { addCollectionAndDocumentsToUser } from '../../utils/firebase/firebase.utils'
 
 
 function Home() {
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
   const userId = user?.uid
+  
 
   useEffect(() => {
     const addCollection = async () => {
@@ -18,10 +21,8 @@ function Home() {
       // console.log(groupsArray)
 
       if (userId) {        
-        // await addCollectionAndDocumentsToUser('groups',groupsArray,userId)
-        
-        dispatch(fetchGroupsAsync(userId))
-        console.log('fetching data is successful')
+        // await addCollectionAndDocumentsToUser('groups',groupsArray,userId)        
+        dispatch(fetchGroupsAsync(userId))      
       }
       
     }

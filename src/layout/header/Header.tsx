@@ -1,17 +1,15 @@
 import './header.styles.scss'
 import { AiOutlineArrowLeft, AiOutlineSearch, AiFillBell } from 'react-icons/ai'
 import { BsThreeDotsVertical } from 'react-icons/bs'
-import { Link, Outlet } from 'react-router-dom'
-import HeaderList from '../../components/header-list/HeaderList'
-import { Group } from '../../store/groups/groups.types'
+import { Link, Outlet, useParams } from 'react-router-dom'
+import HeaderList, { GroupRouteParams } from '../../components/header-list/HeaderList'
+import { useEachGroup } from '../../hooks'
 
 
-interface HeaderProps {
-  eachGroup: Group
-}
-
-function Header({ eachGroup }: HeaderProps) {
-  const { title, participators } = eachGroup
+function Header() {
+  const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
+  const eachGroup = useEachGroup(group)
+  const { title, participators } = eachGroup 
   
 
   return (

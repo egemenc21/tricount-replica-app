@@ -6,6 +6,10 @@ $tertiary-color: #0c5183;
   background-color: #fff;
   height: 100vh;
 }
+.hidden {
+  display: hidden;
+  color: red;
+}
 
 .add-expense-header {
   justify-content: start;
@@ -27,23 +31,35 @@ $tertiary-color: #0c5183;
   div {
     text-align: start;
   }
+
   label {
     width: 60%;
+    .title,
+    .price,
+    .date,
+    .paidBy {
+      width: 100%;
+    }
   }
   input,
   select {
-    width: 100%;
     border-bottom: 2px solid #a1a1a1;
     padding: 1rem;
     background: #fff;
   }
   .checkbox {
-    width: auto;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
+    div {
+      display: flex;
+      align-items: center;
+    }
     input {
-      display: inline;
+      margin-right: 1rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
   input:focus,

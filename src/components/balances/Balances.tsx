@@ -1,12 +1,16 @@
 import { nanoid } from 'nanoid'
+import { useParams } from 'react-router-dom'
 import BalancesListItem from '../balances-list-item/BalancesListItem'
 import WhoOwesWho, { OwesData } from '../who-owes-who/WhoOwesWho'
 import './balances.styles.scss'
-import calculateBalances, {
-  BalancesProps,
-} from '../../utils/balances/balances.utils'
+import calculateBalances from '../../utils/balances/balances.utils'
+import { GroupRouteParams } from '../header-list/HeaderList'
+import { useEachGroup } from '../../hooks'
 
-function Balances({ participators, expenses }: BalancesProps) {
+function Balances() {
+  const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
+  const eachGroup = useEachGroup(group)
+  const { participators, expenses } = eachGroup
   const balances = calculateBalances({ participators, expenses })
 
   // Initialize an empty array to store owesData

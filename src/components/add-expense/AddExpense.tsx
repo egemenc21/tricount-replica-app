@@ -2,44 +2,76 @@ import { useState } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { nanoid } from 'nanoid'
 import './add-expense.styles.scss'
+import { Link, useParams } from 'react-router-dom'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
+import { useAppDispatch, useAppSelector, useEachGroup } from '../../hooks'
+import { selectCurrentUser } from '../../store/user/user.selector'
+import { GroupRouteParams } from '../header-list/HeaderList'
+import {
+  addExpenseToCollection,
+  addExpensesToCollection,
+} from '../../utils/firebase/firebase.utils'
+import { Expense } from '../../store/groups/groups.types'
+import Checkbox from '../checkbox/Checkbox'
+import { fetchGroupsAsync } from '../../store/groups/groups.reducer'
+import { toast } from 'react-toastify'
 
-interface FormProps {
-  id: string
-  title: string
-  amount: string
-  date: string
-  paidBy: string
-  forWhom: string[]
-}
-
-const defaultFormFields: FormProps = {
+const defaultFormFields: Expense = {
   id: '',
   title: '',
-  amount: '',
+  price: 0,
   date: new Date().toISOString().split('T')[0],
-  paidBy: '',
+  paidBy: 'ege',
   forWhom: [],
 }
 
 function AddExpense() {
+  const user = useAppSelector(selectCurrentUser)
+  const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
   const [formFields, setFormFields] = useState(defaultFormFields)
-
-  const { title, amount, date, paidBy, forWhom } = formFields
+  const eachGroup = useEachGroup(group)
+  const { participators } = eachGroup
+  const { title, price, date, paidBy, forWhom } = formFields
+  const dispatch = useAppDispatch()
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     const id = nanoid()
-    const updatedFormFields = { ...formFields, id }
+    const updatedFormFields = { ...formFields, id, price: +price }
+    if (paidBy === forWhom[0]) {
+      toast.error('You can not add expense for yourself')
+      return
+    }
+    if (forWhom.length === 0) {
+      toast.error('Please select that expense is for whom')
+      return
+    }
+
+    if (user) {
+      await addExpenseToCollection('groups', updatedFormFields, user.uid, group)
+      dispatch(fetchGroupsAsync(user?.uid))
+    }
+
+    // await addCollectionAndDocumentsToUser('groups',groupsArray,userId)
+    const win: Window = window
+    win.location = `/home/${group}`
     console.log(updatedFormFields)
   }
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target
-
     if (type === 'checkbox' && e.target instanceof HTMLInputElement) {
-      if (e.target.checked ) {
+      if (name === 'forWhomChecker') {
+        // If "FOR WHOM" checkbox is checked, check the other two checkboxes
+        if (e.target.checked) {
+          setFormFields({ ...formFields, forWhom: participators })
+        } else {
+          // If "FOR WHOM" checkbox is unchecked, uncheck the other two checkboxes
+          setFormFields({ ...formFields, forWhom: [] })
+        }
+      } else if (e.target.checked) {
         // Add the value to the array when the checkbox is checked
         setFormFields({ ...formFields, forWhom: [...forWhom, value] })
       } else {
@@ -56,14 +88,17 @@ function AddExpense() {
   return (
     <section className="add-expense-section">
       <nav className="add-expense-header">
-        <AiOutlineArrowLeft size={25} />
+        <Link to={`/home/${group}`}>
+          <AiOutlineArrowLeft size={25} />
+        </Link>
         <div className="add-expense-heading">New expense</div>
       </nav>
       <form onSubmit={handleSubmit} className="add-expenses-form">
         <label>
+          <div>Title:</div>
           <input
             type="text"
-            id="title"
+            className="title"
             name="title"
             placeholder="Title"
             value={title}
@@ -72,12 +107,13 @@ function AddExpense() {
           />
         </label>
         <label>
+          <div>Amount:</div>
           <input
             type="number"
-            id="amount"
-            name="amount"
-            placeholder="Amount"
-            value={amount}
+            className="price"
+            name="price"
+            placeholder="amount"
+            value={price}
             onChange={handleChange}
             required
           />
@@ -86,7 +122,7 @@ function AddExpense() {
           <div>Date:</div>
           <input
             type="date"
-            id="date"
+            className="date"
             name="date"
             onChange={handleChange}
             value={date}
@@ -98,7 +134,7 @@ function AddExpense() {
           <div>Paid by:</div>
           <select
             name="paidBy"
-            id="paidBy"
+            className="paidBy"
             onChange={handleChange}
             value={paidBy}
             required
@@ -107,27 +143,12 @@ function AddExpense() {
             <option value="julie">julie</option>
           </select>
         </label>
-
-        <label className="checkbox">
-          <input
-            type="checkbox"
-            id="forWhomEge"
-            name="forWhom"
-            onChange={handleChange}
-            value="ege"
-          />
-          <span>Ege</span>
-        </label>
-        <label className="checkbox">
-          <input
-            type="checkbox"
-            id="forWhomJulie"
-            name="forWhom"
-            onChange={handleChange}
-            value="julie"
-          />
-          <span>Julie</span>
-        </label>
+        <Checkbox
+          handleChange={handleChange}
+          forWhom={forWhom}
+          price={price}
+          paidBy={paidBy}
+        />
         <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
           Add Expense
         </Button>

@@ -1,5 +1,5 @@
 export interface Expense {
-    id: number;
+    id: string;
     title: string;
     price: number;
     date: string;
@@ -8,7 +8,7 @@ export interface Expense {
 }
 
 export interface Group {
-    id: number;
+    id: string;
     title: string;
     description: string;
     participators: string[];

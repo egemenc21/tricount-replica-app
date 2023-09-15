@@ -23,6 +23,14 @@ export const selectGroupsMap = createSelector(
       return acc
     }, {} as GroupMap)
 )
+
+export const selectEachGroup = createSelector(
+  [selectGroupsMap, (state: RootState, groupParam: string) => groupParam],
+  (groupsMap, groupParam) => {
+    return groupsMap[groupParam]
+  }
+)
+
 export const selectGroupsIsLoading = createSelector(
   [selectGroupsReducer],
   (groupsSlice) => groupsSlice.isLoading

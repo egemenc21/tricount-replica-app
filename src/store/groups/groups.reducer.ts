@@ -48,7 +48,7 @@ export const fetchGroupsAsync = (userId: string) => async (dispatch: any) => {
   dispatch(fetchGroupsStart())
   try {
     const groupsArray = await getCategoriesAndDocuments(userId)
-    dispatch(fetchGroupsSuccess(groupsArray))
+    dispatch(fetchGroupsSuccess(groupsArray))    
   } catch (error) {
     dispatch(fetchGroupsFailed(error as Error))
   }
