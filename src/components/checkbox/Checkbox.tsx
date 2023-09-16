@@ -8,11 +8,10 @@ interface CheckboxProps {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void
   forWhom: string[]
-  price: number
-  paidBy: string
+  price: number  
 }
 
-function Checkbox({ handleChange, forWhom, price, paidBy }: CheckboxProps) {
+function Checkbox({ handleChange, forWhom, price }: CheckboxProps) {
   const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
   const eachGroup = useEachGroup(group)
   const { participators } = eachGroup

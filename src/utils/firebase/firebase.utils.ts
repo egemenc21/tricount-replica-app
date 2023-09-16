@@ -2,8 +2,8 @@ import { initializeApp } from 'firebase/app'
 import { User, getAuth } from 'firebase/auth'
 import { getAnalytics } from 'firebase/analytics'
 import {
-  QueryDocumentSnapshot,
-  addDoc,
+  QueryDocumentSnapshot, 
+  arrayRemove,
   arrayUnion,
   collection,
   doc,
@@ -101,26 +101,29 @@ export const addExpenseToCollection = async <T extends Expense>(
     console.error('Error adding expense: ', error)
   }
 }
-// export const addCollectionAndDocuments = async <T extends ObjectToAdd>(
-//   collectionKey: string,
-//   objectToAdd: T[],
-//   userId: string
-// ): Promise<void> => {
-//   const userCollectionRef = collection(db, collectionKey)
-//   const userDocRef = collection(userCollectionRef, userId)
-//   const batch = writeBatch(db)
-//   const docRef = doc(userDocRef, userId)
-//   batch.set(docRef, userId)
 
-//   objectToAdd.forEach((object) => {
-//     const docRef = doc(userDocRef, object.title.toLowerCase())
-//     batch.set(docRef, object)
-//   })
-//   await batch.commit()
-//   console.log('done')
-//   console.log(userId);
+export const removeExpenseFromCollection = async <T extends Expense>(
+  collectionKey: string,
+  objectToRemove: T,
+  userId: string,
+  groupName: string
+): Promise<void> => {
+  const groupsCollectionRef = collection(db, 'users', userId, collectionKey)
+  const groupDocRef = doc(groupsCollectionRef, groupName)
 
-// }
+  try {
+    // Use updateDoc to remove the object from the existing array
+    await updateDoc(groupDocRef, {
+      expenses: arrayRemove(objectToRemove), // Assuming "expenses" is your field
+    })
+
+    console.log('Expense removed successfully')
+  } catch (error) {
+    console.error('Error removing expense: ', error)
+  }
+}
+
+
 export const createUserDocumentFromAuth = async (
   userAuth: User,
   additionalInformation = {} as AdditionalInformation

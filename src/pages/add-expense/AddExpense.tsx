@@ -3,34 +3,33 @@ import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { nanoid } from 'nanoid'
 import './add-expense.styles.scss'
 import { Link, useParams } from 'react-router-dom'
-import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
+import { toast } from 'react-toastify'
+import Button, { BUTTON_TYPE_CLASSES } from '../../components/button/Button'
 import { useAppDispatch, useAppSelector, useEachGroup } from '../../hooks'
 import { selectCurrentUser } from '../../store/user/user.selector'
-import { GroupRouteParams } from '../header-list/HeaderList'
-import {
-  addExpenseToCollection,
-  addExpensesToCollection,
-} from '../../utils/firebase/firebase.utils'
+import { GroupRouteParams } from '../../components/header-list/HeaderList'
+import { addExpenseToCollection } from '../../utils/firebase/firebase.utils'
 import { Expense } from '../../store/groups/groups.types'
-import Checkbox from '../checkbox/Checkbox'
+import Checkbox from '../../components/checkbox/Checkbox'
 import { fetchGroupsAsync } from '../../store/groups/groups.reducer'
-import { toast } from 'react-toastify'
-
-const defaultFormFields: Expense = {
-  id: '',
-  title: '',
-  price: 0,
-  date: new Date().toISOString().split('T')[0],
-  paidBy: 'ege',
-  forWhom: [],
-}
+import PaidBy from '../../components/paid-by/PaidBy'
 
 function AddExpense() {
   const user = useAppSelector(selectCurrentUser)
   const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
-  const [formFields, setFormFields] = useState(defaultFormFields)
   const eachGroup = useEachGroup(group)
   const { participators } = eachGroup
+
+  const defaultFormFields: Expense = {
+    id: '',
+    title: '',
+    price: 0,
+    date: new Date().toISOString().split('T')[0],
+    paidBy: participators[0],
+    forWhom: [],
+  }
+  const [formFields, setFormFields] = useState(defaultFormFields)
+
   const { title, price, date, paidBy, forWhom } = formFields
   const dispatch = useAppDispatch()
 
@@ -38,7 +37,7 @@ function AddExpense() {
     e.preventDefault()
     const id = nanoid()
     const updatedFormFields = { ...formFields, id, price: +price }
-    if (paidBy === forWhom[0]) {
+    if (paidBy === forWhom.find(() => paidBy) && forWhom.length === 1) {
       toast.error('You can not add expense for yourself')
       return
     }
@@ -130,25 +129,12 @@ function AddExpense() {
             required
           />
         </label>
-        <label>
-          <div>Paid by:</div>
-          <select
-            name="paidBy"
-            className="paidBy"
-            onChange={handleChange}
-            value={paidBy}
-            required
-          >
-            <option value="ege">ege</option>
-            <option value="julie">julie</option>
-          </select>
-        </label>
-        <Checkbox
-          handleChange={handleChange}
-          forWhom={forWhom}
-          price={price}
+        <PaidBy
+          participators={participators}
           paidBy={paidBy}
+          handleChange={handleChange}
         />
+        <Checkbox handleChange={handleChange} forWhom={forWhom} price={price} />
         <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
           Add Expense
         </Button>

@@ -1,0 +1,14 @@
+.add-tricount-section {
+  background-color: #fff;
+  height: 100vh;
+}
+.add-tricount-header {
+  justify-content: start;
+  padding: 0 1rem;
+  gap: 1rem;
+
+  .add-tricount-heading {
+    text-align: center;
+    flex-basis: 200px;
+  }
+}

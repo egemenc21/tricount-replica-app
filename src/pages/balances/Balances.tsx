@@ -1,16 +1,17 @@
 import { nanoid } from 'nanoid'
-import { useParams } from 'react-router-dom'
-import BalancesListItem from '../balances-list-item/BalancesListItem'
-import WhoOwesWho, { OwesData } from '../who-owes-who/WhoOwesWho'
+import BalancesListItem from '../../components/balances-list-item/BalancesListItem'
+import WhoOwesWho, { OwesData } from '../../components/who-owes-who/WhoOwesWho'
 import './balances.styles.scss'
 import calculateBalances from '../../utils/balances/balances.utils'
-import { GroupRouteParams } from '../header-list/HeaderList'
-import { useEachGroup } from '../../hooks'
+import { useAppSelector } from '../../hooks'
+import { selectExpenses } from '../../store/expenses/expenses.selector'
 
-function Balances() {
-  const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
-  const eachGroup = useEachGroup(group)
-  const { participators, expenses } = eachGroup
+interface BalancesProps {
+  participators: string[]
+}
+
+function Balances({ participators }: BalancesProps) {
+  const expenses = useAppSelector(selectExpenses)
   const balances = calculateBalances({ participators, expenses })
 
   // Initialize an empty array to store owesData

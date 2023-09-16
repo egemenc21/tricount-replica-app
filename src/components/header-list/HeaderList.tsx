@@ -24,7 +24,7 @@ function HeaderList() {
       </NavLink>
 
       <NavLink
-        to={`/home/${group}/balances`}
+        to='balances'
         className={({ isActive }) => (isActive ? 'active' : 'de-active')}
       >
         <li className="header-list-item">

@@ -25,48 +25,53 @@ function SignUpForm() {
   //     setFormFields(defaultFormFields)
   //   }
 
-  const handleSubmit = async (e:React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     try {
       const data = await createUserWithEmailAndPassword(auth, email, password)
       const { user } = data
       if (user) {
-        const win: Window = window;
+        const win: Window = window
         win.location = '/home'
       }
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         toast.error((error as AuthError).message)
       }
-      
     }
   }
-  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
 
     setFormFields({ ...formFields, [name]: value })
   }
 
   return (
-    <section >
-      <h2 className='auth-title'>You do not have an account?</h2>
-      <span className='auth-description'>Register with your email and password</span>
-      <form onSubmit={handleSubmit} className='auth-form-container'>
+    <section>
+      <h2 className="auth-title">You do not have an account?</h2>
+      <span className="auth-description">
+        Register with your email and password
+      </span>
+      <form onSubmit={handleSubmit} className="auth-form-container">
         <input
           type="email"
           name="email"
           value={email}
           onChange={handleChange}
-          required className='auth-input'
+          required
+          className="auth-input"
+          placeholder="Your email"
         />
         <input
           type="password"
           name="password"
           value={password}
           onChange={handleChange}
-          required className='auth-input'
-        />        
+          required
+          className="auth-input"
+          placeholder="Your password"
+        />
         <Button buttonType={BUTTON_TYPE_CLASSES.inverted}>Register</Button>
       </form>
     </section>

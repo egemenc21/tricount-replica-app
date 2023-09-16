@@ -11,14 +11,10 @@ function Expenses() {
     <div className="expenses-container">
       <div className="all-expenses">
         {expenses &&
-          expenses.map((item) => (
+          expenses.map((expense) => (
             <ExpensesListItem
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              paidBy={item.paidBy}
-              price={item.price}
-              date={item.date}
+              key={expense.id}
+              expense={expense}
             />
           ))}
         <div>{!expenses ? <p>You do not have any tricount yet</p> : null}</div>

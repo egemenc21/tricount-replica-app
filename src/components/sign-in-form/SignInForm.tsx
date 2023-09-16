@@ -59,6 +59,7 @@ function SignInForm() {
           onChange={handleChange}
           required
           className="auth-input"
+          placeholder='Your email'
         />
         <input
           type="password"
@@ -67,6 +68,8 @@ function SignInForm() {
           onChange={handleChange}
           required
           className="auth-input"
+          placeholder='Your password'
+
         />
         <Button buttonType={BUTTON_TYPE_CLASSES.base}>Sign In</Button>        
       </form>
