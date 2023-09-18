@@ -4,14 +4,18 @@ import { signOut } from 'firebase/auth'
 import { toast } from 'react-toastify'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
 import { auth } from '../../utils/firebase/firebase.utils'
+import { useAppDispatch } from '../../hooks'
+import { emptyAllTriCounts } from '../../store/tricounts/tricounts.reducer'
 
 interface NavAuthItemProps {
   userEmail: string
 }
 
 function NavAuthItem({ userEmail }: NavAuthItemProps) {
+  const dispatch = useAppDispatch()
   const logOutHandler = async () => {
     await signOut(auth)
+    dispatch(emptyAllTriCounts())
     toast.success('Log out successful')
   }
   return (

@@ -5,21 +5,21 @@ import './add-expense.styles.scss'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Button, { BUTTON_TYPE_CLASSES } from '../../components/button/Button'
-import { useAppDispatch, useAppSelector, useEachGroup } from '../../hooks'
+import { useAppDispatch, useAppSelector, useEachTriCount } from '../../hooks'
 import { selectCurrentUser } from '../../store/user/user.selector'
-import { GroupRouteParams } from '../../components/header-list/HeaderList'
+import { TriCountRouteParams } from '../../components/header-list/HeaderList'
 import { addExpenseToCollection } from '../../utils/firebase/firebase.utils'
-import { Expense } from '../../store/groups/groups.types'
+import { Expense } from '../../store/tricounts/tricounts.types'
 import Checkbox from '../../components/checkbox/Checkbox'
-import { fetchGroupsAsync } from '../../store/groups/groups.reducer'
+import { fetchTriCountsAsync } from '../../store/tricounts/tricounts.reducer'
 import PaidBy from '../../components/paid-by/PaidBy'
 
 function AddExpense() {
   const user = useAppSelector(selectCurrentUser)
   const navigate = useNavigate()
-  const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
-  const eachGroup = useEachGroup(group)
-  const { participators } = eachGroup
+  const { tricount } = useParams<keyof TriCountRouteParams>() as TriCountRouteParams
+  const eachTriCount = useEachTriCount(tricount)
+  const { participators } = eachTriCount
 
   const defaultFormFields: Expense = {
     id: '',
@@ -48,13 +48,11 @@ function AddExpense() {
     }
 
     if (user) {
-      await addExpenseToCollection('groups', updatedFormFields, user.uid, group)
-      dispatch(fetchGroupsAsync(user?.uid))
+      await addExpenseToCollection('tricounts', updatedFormFields, user.uid, tricount)
+      dispatch(fetchTriCountsAsync(user.uid,"tricounts"))
     }
 
-    // await addCollectionAndDocumentsToUser('groups',groupsArray,userId)
-    navigate(`/home/${group}`)
-
+    navigate(`/home/${tricount}`)
   }
 
   const handleChange = (
@@ -87,7 +85,7 @@ function AddExpense() {
   return (
     <section className="add-expense-section">
       <nav className="add-expense-header">
-        <Link to={`/home/${group}`}>
+        <Link to={`/home/${tricount}`}>
           <AiOutlineArrowLeft size={25} />
         </Link>
         <div className="add-expense-heading">New expense</div>

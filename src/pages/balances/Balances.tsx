@@ -5,12 +5,14 @@ import './balances.styles.scss'
 import calculateBalances from '../../utils/balances/balances.utils'
 import { useAppSelector } from '../../hooks'
 import { selectExpenses } from '../../store/expenses/expenses.selector'
+import { CurrencyData } from '../../store/tricounts/tricounts.types'
 
 interface BalancesProps {
   participators: string[]
+  currencyData: CurrencyData
 }
 
-function Balances({ participators }: BalancesProps) {
+function Balances({ participators, currencyData }: BalancesProps) {
   const expenses = useAppSelector(selectExpenses)
   const balances = calculateBalances({ participators, expenses })
 
@@ -48,6 +50,7 @@ function Balances({ participators }: BalancesProps) {
             key={participant}
             money={balances[participant]}
             user={participant}
+            symbol={currencyData.symbol}
           />
         ))}
       </ul>

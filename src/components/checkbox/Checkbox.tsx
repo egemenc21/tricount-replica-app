@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
-import { useEachGroup } from '../../hooks'
-import { GroupRouteParams } from '../header-list/HeaderList'
+import { useEachTriCount } from '../../hooks'
+import { TriCountRouteParams } from '../header-list/HeaderList'
 import { calculateShare } from '../../utils/balances/balances.utils'
 
 interface CheckboxProps {
@@ -12,9 +12,9 @@ interface CheckboxProps {
 }
 
 function Checkbox({ handleChange, forWhom, price }: CheckboxProps) {
-  const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
-  const eachGroup = useEachGroup(group)
-  const { participators } = eachGroup
+  const { tricount } = useParams<keyof TriCountRouteParams>() as TriCountRouteParams
+  const eachTriCount = useEachTriCount(tricount)
+  const { participators } = eachTriCount
 
   const share = calculateShare(forWhom, price)
 

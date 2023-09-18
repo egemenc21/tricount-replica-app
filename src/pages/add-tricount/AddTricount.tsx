@@ -2,23 +2,22 @@ import { useEffect, useState } from 'react'
 import './add-tricount.styles.scss'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom'
-import { fetchEmptyCurrencyData } from '../../utils/db/db'
-import Button, { BUTTON_TYPE_CLASSES } from '../../components/button/Button'
 import { toast } from 'react-toastify'
+import { nanoid } from 'nanoid'
+import Button, { BUTTON_TYPE_CLASSES } from '../../components/button/Button'
 import { addCollectionAndDocumentsToUser } from '../../utils/firebase/firebase.utils'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { selectCurrentUser } from '../../store/user/user.selector'
-import { nanoid } from 'nanoid'
-import { fetchGroupsAsync } from '../../store/groups/groups.reducer'
+import { fetchTriCountsAsync } from '../../store/tricounts/tricounts.reducer'
+import { fetchEmptyCurrencyData } from '../../utils/db/db'
+import { CurrencyData } from '../../store/tricounts/tricounts.types'
 
-// interface AddTricountProps {
-
-// }
 interface FormFields {
   id: string
   title: string
   description: string
   currency: string
+  currencyData: CurrencyData
   participant: string
   participators: string[]
 }
@@ -28,6 +27,10 @@ const defaultFormFields: FormFields = {
   title: '',
   description: '',
   currency: 'eur',
+  currencyData: {
+    abbreviation: 'EUR',
+    symbol: '€',
+  },
   participant: '',
   participators: [],
 }
@@ -66,11 +69,11 @@ function AddTricount() {
 
     if (user) {
       await addCollectionAndDocumentsToUser(
-        'groups',
+        'tricounts',
         updatedFormFields,
         user.uid
       )
-      dispatch(fetchGroupsAsync(user?.uid))
+      dispatch(fetchTriCountsAsync(user?.uid, 'tricounts'))
     }
     navigate('/home')
   }
@@ -79,7 +82,27 @@ function AddTricount() {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target
-    setFormFields({ ...formFields, [name]: value })
+
+    if (name === 'currency') {
+      const selectElement = e.target as HTMLSelectElement
+      const { selectedIndex } = selectElement
+      if (selectedIndex !== -1) {
+        const selectedOption = selectElement.options[selectedIndex]
+        const dataSymbol = selectedOption.getAttribute('data-symbol')
+        console.log('Data Symbol:', dataSymbol)
+
+        setFormFields({
+          ...formFields,
+          currency: value, // Update the currency value with the selected abbreviation
+          currencyData: {
+            abbreviation: value, // Update the abbreviation
+            symbol: dataSymbol || '', // Update the symbol, use an empty string as fallback
+          },
+        })
+      }
+    } else {
+      setFormFields({ ...formFields, [name]: value })
+    }
   }
   const handleOnClick = () => {
     if (participant.trim() !== '') {
@@ -139,7 +162,11 @@ function AddTricount() {
           >
             {allCurrency &&
               allCurrency.map((item, index) => (
-                <option key={index} value={item.abbreviation}>
+                <option
+                  key={index}
+                  data-symbol={item.symbol}
+                  value={item.abbreviation}
+                >
                   {item.abbreviation}
                 </option>
               ))}

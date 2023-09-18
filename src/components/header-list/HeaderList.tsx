@@ -3,18 +3,18 @@ import './header-list.styles.scss'
 import { CgMenuBoxed, CgArrowsExchange } from 'react-icons/cg'
 
 
-export type GroupRouteParams = {
-  group: string
+export type TriCountRouteParams = {
+  tricount: string
 }
 
 
 function HeaderList() {
-  const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
+  const { tricount } = useParams<keyof TriCountRouteParams>() as TriCountRouteParams
 
   return (
     <ul className="header-list">
       <NavLink
-        to={`/home/${group}`} end
+        to={`/home/${tricount}`} end
         className={({ isActive }) => (isActive ? 'active' : 'de-active')}
       >
         <li className="header-list-item">

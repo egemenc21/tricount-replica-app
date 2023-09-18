@@ -6,6 +6,7 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -15,8 +16,7 @@ import {
   updateDoc,
   writeBatch,
 } from 'firebase/firestore'
-import { Expense, Group } from '../../store/groups/groups.types'
-import { fetchEmptyGroupsData } from '../db/db'
+import { Expense, TriCount } from '../../store/tricounts/tricounts.types'
 import { stringConverter } from '../format/format.utils'
 
 const firebaseConfig = {
@@ -106,14 +106,14 @@ export const addExpenseToCollection = async <T extends Expense>(
   collectionKey: string,
   objectToAdd: T,
   userId: string,
-  groupName: string
+  triCountName: string
 ): Promise<void> => {
-  const groupsCollectionRef = collection(db, 'users', userId, collectionKey)
-  const groupDocRef = doc(groupsCollectionRef, groupName)
+  const triCountsCollectionRef = collection(db, 'users', userId, collectionKey)
+  const triCountDocRef = doc(triCountsCollectionRef, triCountName)
 
   try {
     // Use updateDoc to add the new object to the existing array
-    await updateDoc(groupDocRef, {
+    await updateDoc(triCountDocRef, {
       expenses: arrayUnion(objectToAdd), // Assuming "expenses" is your field
     })
 
@@ -127,18 +127,32 @@ export const removeExpenseFromCollection = async <T extends Expense>(
   collectionKey: string,
   objectToRemove: T,
   userId: string,
-  groupName: string
+  triCountName: string
 ): Promise<void> => {
-  const groupsCollectionRef = collection(db, 'users', userId, collectionKey)
-  const groupDocRef = doc(groupsCollectionRef, groupName)
+  const triCountsCollectionRef = collection(db, 'users', userId, collectionKey)
+  const triCountDocRef = doc(triCountsCollectionRef, triCountName)
 
   try {
     // Use updateDoc to remove the object from the existing array
-    await updateDoc(groupDocRef, {
+    await updateDoc(triCountDocRef, {
       expenses: arrayRemove(objectToRemove), // Assuming "expenses" is your field
     })
 
     console.log('Expense removed successfully')
+  } catch (error) {
+    console.error('Error removing expense: ', error)
+  }
+}
+export const removeTriCountFromCollection = async (
+  collectionKey: string,
+  userId: string,
+  triCountName: string
+): Promise<void> => {
+  const documentRef = doc(db, 'users', userId, collectionKey, triCountName)
+
+  try {
+    await deleteDoc(documentRef)
+    console.log('Document removed successfully')
   } catch (error) {
     console.error('Error removing expense: ', error)
   }
@@ -163,7 +177,6 @@ export const createUserDocumentFromAuth = async (
         createdAt,
         ...additionalInformation,
       })
-      
     } catch (error) {
       console.log('error when creating user', error)
     }
@@ -172,12 +185,16 @@ export const createUserDocumentFromAuth = async (
 }
 
 export const getCategoriesAndDocuments: (
-  arg0: string
-) => Promise<Group[]> = async (userId): Promise<Group[]> => {
-  const collectionRef = collection(db, 'users', userId, 'groups')
+  userId: string,
+  collectionKey: string
+) => Promise<TriCount[]> = async (
+  userId,
+  collectionKey
+): Promise<TriCount[]> => {
+  const collectionRef = collection(db, 'users', userId, collectionKey)
   const q = query(collectionRef)
   const querySnapshot = await getDocs(q)
-  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as Group)
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as TriCount)
 }
 
 // export const getCurrentUser = ():Promise<User | null> => {

@@ -1,6 +1,6 @@
-export default async function fetchGroupsData() {
+export default async function fetchTricountsData() {
   try {
-    const response = await fetch('/db/groupsData.json')
+    const response = await fetch('/db/tricountsData.json')
     if (!response.ok) {
       throw new Error('Network response was not ok')
     }
@@ -11,9 +11,9 @@ export default async function fetchGroupsData() {
     return error
   }
 }
-export async function fetchEmptyGroupsData() {
+export async function fetchEmptyTricountsData() {
   try {
-    const response = await fetch('/db/emptyGroupsData.json')
+    const response = await fetch('/db/emptyTricountsData.json')
     if (!response.ok) {
       throw new Error('Network response was not ok')
     }

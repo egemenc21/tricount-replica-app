@@ -3,8 +3,13 @@ import ExpensesListItem from '../expenses-list-item/ExpensesListItem'
 import Footer from '../../layout/footer/Footer'
 import './expenses.styles.scss'
 import { selectExpenses } from '../../store/expenses/expenses.selector'
+import { CurrencyData } from '../../store/tricounts/tricounts.types'
 
-function Expenses() {
+interface ExpensesProps {
+  currencyData: CurrencyData
+}
+
+function Expenses({ currencyData }: ExpensesProps) {
   const expenses = useAppSelector(selectExpenses)
 
   return (
@@ -15,9 +20,10 @@ function Expenses() {
             <ExpensesListItem
               key={expense.id}
               expense={expense}
+              symbol={currencyData.symbol}
             />
           ))}
-        <div>{!expenses ? <p>You do not have any tricount yet</p> : null}</div>
+        <div>{!expenses ? <p>You do not have any expenses yet</p> : null}</div>
       </div>
       <Footer />
     </div>

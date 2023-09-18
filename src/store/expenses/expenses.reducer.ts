@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { Expense } from '../groups/groups.types'
+import { Expense } from '../tricounts/tricounts.types'
 
 export interface ExpensesState {
   value: Expense[]
@@ -13,9 +13,7 @@ const addExpense = (expenses: Expense[], expenseToAdd: Expense) => {
   return [...expenses, expenseToAdd]
 }
 const removeExpense = (expenses: Expense[], expenseId: string) => {
-  const existingExpense = expenses.find(
-    (expense) => expense.id === expenseId
-  )
+  const existingExpense = expenses.find((expense) => expense.id === expenseId)
   if (existingExpense) {
     return expenses.filter((expense) => expense.id !== existingExpense.id)
   }

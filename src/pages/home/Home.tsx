@@ -1,13 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
 import HomePreview from '../../components/home-preview/HomePreview'
-import EachGroup from '../each-group/EachGroup'
+import EachTriCount from '../each-tricount/EachTriCount'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { selectCurrentUser } from '../../store/user/user.selector'
-import { fetchGroupsAsync } from '../../store/groups/groups.reducer'
+import { fetchTriCountsAsync } from '../../store/tricounts/tricounts.reducer'
 import AddTricount from '../add-tricount/AddTricount'
-// import fetchGroupsData from '../../utils/db/db'
-// import { addCollectionAndDocumentsToUser } from '../../utils/firebase/firebase.utils'
+
 
 function Home() {
   const dispatch = useAppDispatch()
@@ -16,12 +15,8 @@ function Home() {
 
   useEffect(() => {
     const addCollection = async () => {
-      // const groupsArray = await fetchGroupsData()
-      // console.log(groupsArray)
-
       if (userId) {
-        // await addCollectionAndDocumentsToUser('groups',groupsArray,userId)
-        dispatch(fetchGroupsAsync(userId))
+        dispatch(fetchTriCountsAsync(userId, 'tricounts'))
       }
     }
     addCollection()
@@ -31,7 +26,7 @@ function Home() {
     <Routes>
       <Route path="/" element={<HomePreview />} />
       <Route path="/add-tricount" element={<AddTricount />} />
-      <Route path=":group/*" element={<EachGroup />} />
+      <Route path=":tricount/*" element={<EachTriCount />} />
     </Routes>
   )
 }
