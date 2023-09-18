@@ -13,9 +13,13 @@ export const BUTTON_TYPE_CLASSES = {
   addExpense: 'add-expense',
 }
 
-function BaseButton({ children }: ButtonHTMLAttributes<HTMLButtonElement>) {
+function BaseButton({
+  children,
+  onClick,
+  type = 'submit'
+}: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <button className="btn base-btn" type="submit">
+    <button className="btn base-btn" onClick={onClick} type={type}>
       {children}
     </button>
   )
@@ -62,9 +66,9 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
     [BUTTON_TYPE_CLASSES.addExpense]: AddExpenseButton,
   })[buttonType]
 
-function Button({ children, buttonType }: ButtonProps) {
+function Button({ children, onClick, buttonType,type }: ButtonProps) {
   const CustomButton = getButton(buttonType)
-  return <CustomButton>{children}</CustomButton>
+  return <CustomButton onClick={onClick} type={type}>{children}</CustomButton>
 }
 
 export default Button

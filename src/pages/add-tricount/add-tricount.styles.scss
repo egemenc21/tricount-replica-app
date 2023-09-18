@@ -12,3 +12,31 @@
     flex-basis: 200px;
   }
 }
+.add-tricount-form {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  div {
+    text-align: start;
+  }
+}
+label {
+  width: 60%;
+  .currency {
+    width: 100%;
+  }
+  .add-participant{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    button{
+      padding: 0 1.5rem;
+      height: 2rem;
+    }
+    
+  }  
+}
+

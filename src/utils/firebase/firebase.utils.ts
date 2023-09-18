@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { User, getAuth } from 'firebase/auth'
 import { getAnalytics } from 'firebase/analytics'
 import {
-  QueryDocumentSnapshot, 
+  QueryDocumentSnapshot,
   arrayRemove,
   arrayUnion,
   collection,
@@ -59,9 +59,31 @@ export type AdditionalInformation = {
   displayName?: string
 }
 
+// export const addCollectionAndDocumentsToUser = async <T extends ObjectToAdd>(
+//   collectionKey: string,
+//   objectToAdd: T[],
+//   userId: string // Assuming userId is the user's unique identifier
+// ): Promise<void> => {
+//   const userCollectionRef = collection(db, 'users', userId, collectionKey)
+//   console.log(userCollectionRef)
+
+//   const batch = writeBatch(db)
+
+//   // Now add objects under the user's subcollection
+//   objectToAdd.forEach(async (object) => {
+//     const newDocRef = doc(
+//       userCollectionRef,
+//       stringConverter(object.title.toLowerCase())
+//     )
+//     batch.set(newDocRef, object)
+//   })
+
+//   await batch.commit()
+//   console.log('done')
+// }
 export const addCollectionAndDocumentsToUser = async <T extends ObjectToAdd>(
   collectionKey: string,
-  objectToAdd: T[],
+  objectToAdd: T,
   userId: string // Assuming userId is the user's unique identifier
 ): Promise<void> => {
   const userCollectionRef = collection(db, 'users', userId, collectionKey)
@@ -70,13 +92,12 @@ export const addCollectionAndDocumentsToUser = async <T extends ObjectToAdd>(
   const batch = writeBatch(db)
 
   // Now add objects under the user's subcollection
-  objectToAdd.forEach(async (object) => {
-    const newDocRef = doc(
-      userCollectionRef,
-      stringConverter(object.title.toLowerCase())
-    )
-    batch.set(newDocRef, object)
-  })
+
+  const newDocRef = doc(
+    userCollectionRef,
+    stringConverter(objectToAdd.title.toLowerCase())
+  )
+  batch.set(newDocRef, objectToAdd)
 
   await batch.commit()
   console.log('done')
@@ -123,7 +144,6 @@ export const removeExpenseFromCollection = async <T extends Expense>(
   }
 }
 
-
 export const createUserDocumentFromAuth = async (
   userAuth: User,
   additionalInformation = {} as AdditionalInformation
@@ -143,8 +163,7 @@ export const createUserDocumentFromAuth = async (
         createdAt,
         ...additionalInformation,
       })
-      const emptyArray = await fetchEmptyGroupsData()
-      await addCollectionAndDocumentsToUser('groups', emptyArray, userAuth.uid)
+      
     } catch (error) {
       console.log('error when creating user', error)
     }

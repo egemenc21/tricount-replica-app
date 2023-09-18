@@ -8,6 +8,7 @@ import {
 import { toast } from 'react-toastify'
 import { auth } from '../../utils/firebase/firebase.utils'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
+import { useNavigate } from 'react-router-dom'
 // interface SignUpFormProps {
 
 // }
@@ -20,10 +21,8 @@ const defaultFormFields = {
 function SignUpForm() {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
+  const navigate = useNavigate()
 
-  //   const resetFormFields = () => {
-  //     setFormFields(defaultFormFields)
-  //   }
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -32,8 +31,7 @@ function SignUpForm() {
       const data = await createUserWithEmailAndPassword(auth, email, password)
       const { user } = data
       if (user) {
-        const win: Window = window
-        win.location = '/home'
+        navigate('/home')       
       }
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
@@ -64,7 +62,7 @@ function SignUpForm() {
           placeholder="Your email"
         />
         <input
-          type="password"
+          type="password" 
           name="password"
           value={password}
           onChange={handleChange}

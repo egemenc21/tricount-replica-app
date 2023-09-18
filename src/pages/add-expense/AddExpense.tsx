@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { nanoid } from 'nanoid'
 import './add-expense.styles.scss'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Button, { BUTTON_TYPE_CLASSES } from '../../components/button/Button'
 import { useAppDispatch, useAppSelector, useEachGroup } from '../../hooks'
@@ -16,6 +16,7 @@ import PaidBy from '../../components/paid-by/PaidBy'
 
 function AddExpense() {
   const user = useAppSelector(selectCurrentUser)
+  const navigate = useNavigate()
   const { group } = useParams<keyof GroupRouteParams>() as GroupRouteParams
   const eachGroup = useEachGroup(group)
   const { participators } = eachGroup
@@ -52,9 +53,8 @@ function AddExpense() {
     }
 
     // await addCollectionAndDocumentsToUser('groups',groupsArray,userId)
-    const win: Window = window
-    win.location = `/home/${group}`
-    console.log(updatedFormFields)
+    navigate(`/home/${group}`)
+
   }
 
   const handleChange = (

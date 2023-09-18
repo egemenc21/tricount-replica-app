@@ -8,6 +8,7 @@ import {
 import { toast } from 'react-toastify'
 import { auth } from '../../utils/firebase/firebase.utils'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
+import { useNavigate } from 'react-router-dom'
 
 const defaultFormFields = {
   email: '',
@@ -17,10 +18,7 @@ const defaultFormFields = {
 function SignInForm() {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
-
-  //   const resetFormFields = () => {
-  //     setFormFields(defaultFormFields)
-  //   }
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -29,8 +27,7 @@ function SignInForm() {
       const data = await signInWithEmailAndPassword(auth, email, password)
       const { user } = data
       if (user) {
-        const win: Window = window
-        win.location = '/home'
+        navigate('/home')
       }
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
@@ -59,7 +56,7 @@ function SignInForm() {
           onChange={handleChange}
           required
           className="auth-input"
-          placeholder='Your email'
+          placeholder="Your email"
         />
         <input
           type="password"
@@ -68,10 +65,9 @@ function SignInForm() {
           onChange={handleChange}
           required
           className="auth-input"
-          placeholder='Your password'
-
+          placeholder="Your password"
         />
-        <Button buttonType={BUTTON_TYPE_CLASSES.base}>Sign In</Button>        
+        <Button buttonType={BUTTON_TYPE_CLASSES.base}>Sign In</Button>
       </form>
     </section>
   )
