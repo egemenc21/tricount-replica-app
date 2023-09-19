@@ -7,6 +7,7 @@ import { removeExpenseFromCollection } from '../../utils/firebase/firebase.utils
 import { Expense } from '../../store/tricounts/tricounts.types'
 import { selectCurrentUser } from '../../store/user/user.selector'
 import { TriCountRouteParams } from '../header-list/HeaderList'
+import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
 
 interface ExpensesListItemProps {
   expense: Expense
@@ -32,10 +33,10 @@ function ExpensesListItem({ expense, symbol }: ExpensesListItemProps) {
       )
     }
   }
-  const urlWithoutSpaces = title.replace(/\s+/g, '').toLocaleLowerCase()
+
   const formattedDate = formatDate(new Date(date))
   return (
-    <Link to={urlWithoutSpaces}>
+    <Link to={id}>
       <li className="expenses-list-item">
         <div className="expenses-information">
           <h1 className="expenses-heading">{title}</h1>
@@ -44,20 +45,18 @@ function ExpensesListItem({ expense, symbol }: ExpensesListItemProps) {
           </p>
         </div>
         <div>
-          <button onClick={handleOnClick} type="button">
+          <Button
+            buttonType={BUTTON_TYPE_CLASSES.base}
+            type="button"
+            onClick={handleOnClick}
+          >
             x
-          </button>
+          </Button>
+          <div className="expenses-date">{formattedDate}</div>
           <div
             className="expenses-price"
             dangerouslySetInnerHTML={{ __html: `${symbol}${price}` }}
-          />       
-
-          <div className="expenses-date">{formattedDate}</div>
-          <span className="expenses-price">
-  {symbol}
-  {price}
-</span>
-
+          />
         </div>
       </li>
     </Link>

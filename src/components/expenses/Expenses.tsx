@@ -15,17 +15,19 @@ function Expenses({ currencyData }: ExpensesProps) {
   return (
     <div className="expenses-container">
       <div className="all-expenses">
-        {expenses &&
+        {expenses ? (
           expenses.map((expense) => (
             <ExpensesListItem
               key={expense.id}
               expense={expense}
               symbol={currencyData.symbol}
             />
-          ))}
-        <div>{!expenses ? <p>You do not have any expenses yet</p> : null}</div>
+          ))
+        ) : (
+          <p>You do not have any expense yet</p>
+        )}
       </div>
-      <Footer />
+      <Footer symbol={currencyData.symbol} />
     </div>
   )
 }

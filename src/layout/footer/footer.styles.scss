@@ -6,10 +6,19 @@ footer {
   width: 100%;
   position: relative;
   background: #272222;
+  color: white;
 
   .add-expense {
     position: absolute;
     left: 44%;
     bottom: 30px;    
+  }
+  .total-expenses,.each-total{
+    h5{
+      color: #a1a1a1;      
+    }
+    span{
+      
+    }
   }
 }

@@ -1,10 +1,10 @@
 import { Route, Routes, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { Vortex } from 'react-loader-spinner'
 import Header from '../../layout/header/Header'
 import Expenses from '../../components/expenses/Expenses'
 import Balances from '../balances/Balances'
 import { useAppDispatch, useAppSelector } from '../../hooks'
-
 import {
   selectTriCountsIsLoading,
   selectTriCountsMap,
@@ -12,6 +12,7 @@ import {
 import { TriCountRouteParams } from '../../components/header-list/HeaderList'
 import AddExpense from '../add-expense/AddExpense'
 import { setExpenses } from '../../store/expenses/expenses.reducer'
+import EachExpense from '../each-expense/EachExpense'
 
 function EachTriCount() {
   const dispatch = useAppDispatch()
@@ -31,12 +32,23 @@ function EachTriCount() {
   }, [tricountsMap, tricount, eachTriCount, dispatch])
 
   return isLoading ? (
-    <p>LOADING</p>
+    <Vortex
+      visible={true}
+      height="80"
+      width="80"
+      ariaLabel="vortex-loading"
+      wrapperStyle={{}}
+      wrapperClass="vortex-wrapper"
+      colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+    />
   ) : (
     eachTriCount && (
       <Routes>
         <Route path="/" element={<Header />}>
-          <Route index element={<Expenses currencyData={eachTriCount.currencyData} />} />
+          <Route
+            index
+            element={<Expenses currencyData={eachTriCount.currencyData} />}
+          />
           <Route
             path="balances"
             element={
@@ -47,7 +59,8 @@ function EachTriCount() {
             }
           />
         </Route>
-        <Route path="add-expense" element={<AddExpense />} />
+        <Route path=":expenseId" element={<EachExpense />} />
+        <Route path="add-expense" element={<AddExpense/>} />
       </Routes>
     )
   )

@@ -1,5 +1,14 @@
-.tricounts-list {
+.tricounts-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;  
+  justify-content: space-between;
+  height: 90%;
+  .tricounts-list {   
+    height: 100%;
+    overflow-y: scroll;
+    
+  }
+  .add-tricount { 
+    margin-top: 1rem;
+  }
 }

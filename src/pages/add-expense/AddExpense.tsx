@@ -17,10 +17,11 @@ import PaidBy from '../../components/paid-by/PaidBy'
 function AddExpense() {
   const user = useAppSelector(selectCurrentUser)
   const navigate = useNavigate()
-  const { tricount } = useParams<keyof TriCountRouteParams>() as TriCountRouteParams
+  const { tricount } = useParams<
+    keyof TriCountRouteParams
+  >() as TriCountRouteParams
   const eachTriCount = useEachTriCount(tricount)
   const { participators } = eachTriCount
-
   const defaultFormFields: Expense = {
     id: '',
     title: '',
@@ -38,18 +39,24 @@ function AddExpense() {
     e.preventDefault()
     const id = nanoid()
     const updatedFormFields = { ...formFields, id, price: +price }
-    if (paidBy === forWhom.find(() => paidBy) && forWhom.length === 1) {
-      toast.error('You can not add expense for yourself')
-      return
-    }
+    // Adding expense to yourself
+    // if (paidBy === forWhom.find(() => paidBy) && forWhom.length === 1) {
+    //   toast.error('You can not add expense for yourself')
+    //   return
+    // }
     if (forWhom.length === 0) {
       toast.error('Please select that expense is for whom')
       return
     }
 
     if (user) {
-      await addExpenseToCollection('tricounts', updatedFormFields, user.uid, tricount)
-      dispatch(fetchTriCountsAsync(user.uid,"tricounts"))
+      await addExpenseToCollection(
+        'tricounts',
+        updatedFormFields,
+        user.uid,
+        tricount
+      )
+      dispatch(fetchTriCountsAsync(user.uid, 'tricounts'))
     }
 
     navigate(`/home/${tricount}`)
@@ -106,14 +113,15 @@ function AddExpense() {
         <label>
           <div>Amount:</div>
           <input
-            type="number"
-            className="price"
-            name="price"
-            placeholder="amount"
-            value={price}
-            onChange={handleChange}
-            required
-          />
+          type="number"
+          inputMode="numeric"
+          className="price"
+          name="price"
+          placeholder="amount"
+          value={price}
+          onChange={handleChange}
+          required
+        />
         </label>
         <label>
           <div>Date:</div>
