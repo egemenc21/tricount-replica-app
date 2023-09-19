@@ -30,8 +30,15 @@ function SignInForm() {
         navigate('/home')
       }
     } catch (error) {
-      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
-        toast.error((error as AuthError).message)
+      switch ((error as AuthError).code) {
+        case AuthErrorCodes.INVALID_PASSWORD:
+          toast.error('Email and password do not match')
+          break
+        case AuthErrorCodes.USER_DELETED:
+          toast.error('There is no user with that email')
+          break
+        default:
+          toast.error('Please try again later')
       }
     }
   }

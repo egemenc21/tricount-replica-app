@@ -170,7 +170,7 @@ function ModifyExpense() {
         />
         <Checkbox handleChange={handleChange} forWhom={forWhom} price={price} />
         <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
-          Add Expense
+          Modify Expense
         </Button>
       </form>
     </section>
