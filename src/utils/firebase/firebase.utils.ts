@@ -143,6 +143,50 @@ export const removeExpenseFromCollection = async <T extends Expense>(
     console.error('Error removing expense: ', error)
   }
 }
+
+export const updateExpenseInCollection = async (
+  userId: string,
+  triCountName: string,
+  expenseId: string,
+  updatedExpenseData: Partial<Expense>
+): Promise<void> => {
+  const triCountsCollectionRef = collection(db, 'users', userId, 'tricounts')
+  const triCountDocRef = doc(triCountsCollectionRef, triCountName)
+
+  try {
+    const triCountDocSnapshot = await getDoc(triCountDocRef)
+    if (triCountDocSnapshot.exists()) {
+      const expenses = triCountDocSnapshot.data()?.expenses || []
+
+      // Find the index of the expense to be updated
+      const expenseIndex = expenses.findIndex(
+        (expense: Expense) => expense.id === expenseId
+      )
+
+      if (expenseIndex !== -1) {
+        // Create the updated expense object
+        const updatedExpense = {
+          ...expenses[expenseIndex],
+          ...updatedExpenseData,
+        }
+
+        // Update the expense in the array
+        expenses[expenseIndex] = updatedExpense
+
+        // Update the Firestore document with the updated array
+        await updateDoc(triCountDocRef, { expenses })
+        console.log('Expense updated successfully')
+      } else {
+        console.error('Expense not found in the document')
+      }
+    } else {
+      console.error('TriCount document not found')
+    }
+  } catch (error) {
+    console.error('Error updating expense: ', error)
+  }
+}
+
 export const removeTriCountFromCollection = async (
   collectionKey: string,
   userId: string,

@@ -8,13 +8,16 @@ import { selectExpenseById } from '../../store/expenses/expenses.selector'
 import { formatDate } from '../../utils/format/format.utils'
 import { TriCountRouteParams } from '../../components/header-list/HeaderList'
 import { calculateShare } from '../../utils/balances/balances.utils'
-// interface EachExpenseProps {
+import EachExpenseListItem from '../../components/each-expense-list-item/EachExpenseListItem'
+import { CurrencyData } from '../../store/tricounts/tricounts.types'
 
-// }
+interface EachExpenseProps {
+  currencyData: CurrencyData
+}
 export type ExpenseRouteParams = {
   expenseId: string
 }
-function EachExpense() {
+function EachExpense({ currencyData }: EachExpenseProps) {
   const { tricount } = useParams<
     keyof TriCountRouteParams
   >() as TriCountRouteParams
@@ -30,10 +33,7 @@ function EachExpense() {
     return <p>Expense not found</p>
   }
   const { title, paidBy, price, date, forWhom } = expense
-  console.log(forWhom)
   const share = calculateShare(forWhom, price)
-  console.log(share);
-  
 
   const handleOnClick = () => {
     if (user) dispatch(fetchTriCountsAsync(user.uid, 'tricounts'))
@@ -47,7 +47,7 @@ function EachExpense() {
           <Link to={`/home/${tricount}`} onClick={handleOnClick}>
             <AiOutlineArrowLeft size={25} />
           </Link>
-          <Link to="modify">Modify</Link>
+          <Link to="modify">MODIFY</Link>
         </div>
         <h1 className="expense-title">{title}</h1>
         <div className="expense-price">Price: {price}</div>
@@ -56,10 +56,15 @@ function EachExpense() {
           <div className="">{formattedDate}</div>
         </div>
       </div>
-      {forWhom.map((item) => (
-        <li key={item}>{item}</li>
+      <div className="for-whom">For Whom: {forWhom.toString()}</div>
+      {forWhom.map((participant) => (
+        <EachExpenseListItem
+          key={participant}
+          participant={participant}
+          share={share}
+          symbol={currencyData.symbol}
+        />
       ))}
-      <div>s</div>
     </>
   )
 }

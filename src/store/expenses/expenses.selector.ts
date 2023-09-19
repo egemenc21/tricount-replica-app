@@ -33,7 +33,7 @@ export const selectTotalExpensesUsers = createSelector(
       const totals: Record<string, number> = {} // Store the totals for each user
 
       expenses.forEach((expense) => {
-        const { id, price, forWhom, paidBy } = expense
+        const { price, forWhom, paidBy } = expense
         const numberOfPeople = forWhom.length
         const amountPerPerson = price / numberOfPeople
 

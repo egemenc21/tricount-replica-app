@@ -1,9 +1,8 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './footer.styles.scss'
 import Button, { BUTTON_TYPE_CLASSES } from '../../components/button/Button'
 import { useAppSelector } from '../../hooks'
 import {
-  selectExpenses,
   selectTotalExpenses,
   selectTotalExpensesUsers,
 } from '../../store/expenses/expenses.selector'

@@ -9,7 +9,7 @@ import { addCollectionAndDocumentsToUser } from '../../utils/firebase/firebase.u
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { selectCurrentUser } from '../../store/user/user.selector'
 import { fetchTriCountsAsync } from '../../store/tricounts/tricounts.reducer'
-import { fetchEmptyCurrencyData } from '../../utils/db/db'
+import fetchEmptyCurrencyData from '../../utils/db/db'
 import { CurrencyData } from '../../store/tricounts/tricounts.types'
 
 interface FormFields {

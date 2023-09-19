@@ -13,6 +13,7 @@ import { TriCountRouteParams } from '../../components/header-list/HeaderList'
 import AddExpense from '../add-expense/AddExpense'
 import { setExpenses } from '../../store/expenses/expenses.reducer'
 import EachExpense from '../each-expense/EachExpense'
+import ModifyExpense from '../modify/Modify'
 
 function EachTriCount() {
   const dispatch = useAppDispatch()
@@ -33,7 +34,7 @@ function EachTriCount() {
 
   return isLoading ? (
     <Vortex
-      visible={true}
+      visible
       height="80"
       width="80"
       ariaLabel="vortex-loading"
@@ -59,8 +60,12 @@ function EachTriCount() {
             }
           />
         </Route>
-        <Route path=":expenseId" element={<EachExpense />} />
-        <Route path="add-expense" element={<AddExpense/>} />
+        <Route
+          path=":expenseId"
+          element={<EachExpense currencyData={eachTriCount.currencyData} />}
+        />
+        <Route path=":expenseId/modify" element={<ModifyExpense/>} />
+        <Route path="add-expense" element={<AddExpense />} />
       </Routes>
     )
   )

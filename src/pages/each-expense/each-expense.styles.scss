@@ -1,24 +1,33 @@
 $primary-color: #3493d6;
 $secondary-color: #262627;
-.expense-header{
+.expense-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 0.5rem;
+  background-color: $primary-color;
+  color: white;
+  min-height: 20%;
+  .expense-route-container,
+  .expense-paidBy-container {
+    svg,
+    a {
+      color: white;
+      letter-spacing: 1px;
+    }
+    padding: 0.5rem 1rem;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 0.5rem;
-    background-color: $primary-color;
-    color: white;
-    min-height: 20%;
-    .expense-route-container,.expense-paidBy-container{
-        padding: 0.5rem 1rem;
-        display: flex;
-        justify-content: space-between;
-       
-    }
-    .expense-title{
-        font-size: 1.5rem;
-    }
-    .expense-price{
-        font-size: 1.2rem;
-    }
-   
+    justify-content: space-between;
+  }
+  .expense-title {
+    font-size: 1.5rem;
+  }
+  .expense-price {
+    font-size: 1.2rem;
+  }
+}
+.for-whom {
+  padding: 1rem;
+  margin-left: 1rem;
+  text-align: start;
 }

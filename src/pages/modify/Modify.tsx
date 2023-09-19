@@ -1,25 +1,34 @@
-import { useState } from 'react'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
-import { nanoid } from 'nanoid'
-import './add-expense.styles.scss'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
 import Button, { BUTTON_TYPE_CLASSES } from '../../components/button/Button'
-import { useAppDispatch, useAppSelector, useEachTriCount } from '../../hooks'
-import { selectCurrentUser } from '../../store/user/user.selector'
-import { TriCountRouteParams } from '../../components/header-list/HeaderList'
-import { addExpenseToCollection } from '../../utils/firebase/firebase.utils'
-import { Expense } from '../../store/tricounts/tricounts.types'
 import Checkbox from '../../components/checkbox/Checkbox'
 import PaidBy from '../../components/paid-by/PaidBy'
-import { addExpenseToExpenses } from '../../store/expenses/expenses.reducer'
+import './modify.styles.scss'
+import { updateExpenseInCollection } from '../../utils/firebase/firebase.utils'
+import { useAppDispatch, useAppSelector, useEachTriCount } from '../../hooks'
+import { Expense } from '../../store/tricounts/tricounts.types'
+import { TriCountRouteParams } from '../../components/header-list/HeaderList'
+import { selectCurrentUser } from '../../store/user/user.selector'
+import { ExpenseRouteParams } from '../each-expense/EachExpense'
+import { selectExpenseById } from '../../store/expenses/expenses.selector'
+import { updateExpenseInExpenses } from '../../store/expenses/expenses.reducer'
+// interface ModifyProps {
 
-function AddExpense() {
+// }
+
+function ModifyExpense() {
+  const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
   const navigate = useNavigate()
   const { tricount } = useParams<
     keyof TriCountRouteParams
   >() as TriCountRouteParams
+
+  const { expenseId } = useParams<
+    keyof ExpenseRouteParams
+  >() as ExpenseRouteParams
   const eachTriCount = useEachTriCount(tricount)
   const { participators } = eachTriCount
   const defaultFormFields: Expense = {
@@ -31,43 +40,60 @@ function AddExpense() {
     forWhom: [],
   }
   const [formFields, setFormFields] = useState(defaultFormFields)
-
-  const { title, price, date, paidBy, forWhom } = formFields
-  const dispatch = useAppDispatch()
+  const expense = useAppSelector(selectExpenseById(expenseId))
+  useEffect(() => {
+    if (expense) {
+      setFormFields(expense)
+    }
+  }, [expense])
+  if (!expense) {
+    return <p>Expense not found</p>
+  }
+  const { id, title, price, date, paidBy, forWhom } = formFields
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const id = nanoid()
-    const updatedFormFields = { ...formFields, id, price: +price }
-    
+    const updatedFormFields = {
+      ...formFields,
+      id,
+    }
+    console.log(updatedFormFields)
+
     // Adding expense to yourself
     // if (paidBy === forWhom.find(() => paidBy) && forWhom.length === 1) {
     //   toast.error('You can not add expense for yourself')
     //   return
     // }
+
     if (forWhom.length === 0) {
       toast.error('Please select that expense is for whom')
       return
     }
 
     if (user) {
-      await addExpenseToCollection(
-        'tricounts',
-        updatedFormFields,
+      //   await addExpenseToCollection(
+      //     'tricounts',
+      //     updatedFormFields,
+      //     user.uid,
+      //     tricount
+      //   )
+      await updateExpenseInCollection(
         user.uid,
-        tricount
+        tricount,
+        expenseId,
+        updatedFormFields
       )
-      dispatch(addExpenseToExpenses(updatedFormFields))
-      
+      dispatch(updateExpenseInExpenses(updatedFormFields))
     }
 
-    navigate(`/home/${tricount}`)
+    navigate(`/home/${tricount}/${expenseId}`)
   }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target
+
     if (type === 'checkbox' && e.target instanceof HTMLInputElement) {
       if (name === 'forWhomChecker') {
         // If "FOR WHOM" checkbox is checked, check the other two checkboxes
@@ -94,10 +120,10 @@ function AddExpense() {
   return (
     <section className="add-expense-section">
       <nav className="add-expense-header">
-        <Link to={`/home/${tricount}`}>
+        <Link to={`/home/${tricount}/${expenseId}`}>
           <AiOutlineArrowLeft size={25} />
         </Link>
-        <div className="add-expense-heading">New expense</div>
+        <div className="add-expense-heading">Modify the expense</div>
       </nav>
       <form onSubmit={handleSubmit} className="add-expenses-form">
         <label>
@@ -115,15 +141,15 @@ function AddExpense() {
         <label>
           <div>Amount:</div>
           <input
-          type="number"
-          inputMode="numeric"
-          className="price"
-          name="price"
-          placeholder="amount"
-          value={price}
-          onChange={handleChange}
-          required
-        />
+            type="number"
+            inputMode="numeric"
+            className="price"
+            name="price"
+            placeholder="amount"
+            value={price}
+            onChange={handleChange}
+            required
+          />
         </label>
         <label>
           <div>Date:</div>
@@ -151,4 +177,4 @@ function AddExpense() {
   )
 }
 
-export default AddExpense
+export default ModifyExpense

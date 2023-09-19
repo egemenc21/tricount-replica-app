@@ -25,9 +25,10 @@ export const selectTriCountsMap = createSelector(
 )
 
 export const selectEachTriCount= createSelector(
-  [selectTriCountsMap, (state: RootState, tricountParam: string) => tricountParam],
+  [selectTriCountsMap, (_state: RootState, tricountParam: string) => tricountParam],
   (tricountsMap, tricountParam) => {
-    return tricountsMap[tricountParam]
+    
+    return  tricountsMap[tricountParam]
   }
 )
 

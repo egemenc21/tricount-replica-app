@@ -19,6 +19,13 @@ const removeExpense = (expenses: Expense[], expenseId: string) => {
   }
   return [...expenses]
 }
+const updateExpense = (expenses: Expense[], expenseToUpdate: Expense) => {
+  const updatedExpenses = expenses.map((expense) =>
+    expense.id === expenseToUpdate.id ? expenseToUpdate : expense
+  )
+
+  return updatedExpenses
+}
 
 export const expensesSlice = createSlice({
   name: 'expenses',
@@ -42,10 +49,20 @@ export const expensesSlice = createSlice({
         value: removeExpense(state.value, action.payload),
       }
     },
+    updateExpenseInExpenses: (state, action: PayloadAction<Expense>) => {
+      return {
+        ...state,
+        value: updateExpense(state.value, action.payload),
+      }
+    },
   },
 })
 
-export const { setExpenses, addExpenseToExpenses, removeExpenseFromExpenses } =
-  expensesSlice.actions
+export const {
+  setExpenses,
+  addExpenseToExpenses,
+  removeExpenseFromExpenses,
+  updateExpenseInExpenses,
+} = expensesSlice.actions
 
 export default expensesSlice.reducer

@@ -1,0 +1,9 @@
+.each-expense-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  list-style: none;
+  border-bottom: 0.5px solid #515354;
+  background-color: white;
+}

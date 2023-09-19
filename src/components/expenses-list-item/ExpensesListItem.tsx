@@ -39,7 +39,7 @@ function ExpensesListItem({ expense, symbol }: ExpensesListItemProps) {
     <Link to={id}>
       <li className="expenses-list-item">
         <div className="expenses-information">
-          <h1 className="expenses-heading">{title}</h1>
+          <h2 className="expenses-heading">{title}</h2>
           <p>
             paid by <span>{paidBy}</span>
           </p>
