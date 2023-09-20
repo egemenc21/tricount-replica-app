@@ -19,8 +19,7 @@ function App() {
   useEffect(() => {
     const auth = getAuth()
     onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        console.log('user signed in')
+      if (user) {        
         await createUserDocumentFromAuth(user)
         dispatch(setCurrentUser(user))
       }

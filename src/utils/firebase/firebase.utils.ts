@@ -1,5 +1,17 @@
 import { initializeApp } from 'firebase/app'
-import { User, getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'firebase/auth'
+import {
+  User,
+  getAuth,
+  signInWithPopup,
+  signInWithRedirect,
+  GoogleAuthProvider,
+  linkWithPopup,
+  linkWithCredential,
+  EmailAuthProvider,
+  fetchSignInMethodsForEmail,
+  EmailAuthCredential,
+  AuthCredential,
+} from 'firebase/auth'
 import { getAnalytics } from 'firebase/analytics'
 import {
   QueryDocumentSnapshot,
@@ -18,7 +30,6 @@ import {
 } from 'firebase/firestore'
 import { Expense, TriCount } from '../../store/tricounts/tricounts.types'
 
-
 const firebaseConfig = {
   apiKey: 'AIzaSyCtbJvpuLUGUR0n1OUuAoE5Xe14tYlF7Rw',
 
@@ -34,19 +45,16 @@ const firebaseConfig = {
 
   measurementId: 'G-JZMLEQXVV0',
 }
-const googleProvider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider()
 
 googleProvider.setCustomParameters({
   prompt: 'select_account',
-});
+})
 
 // Initialize Firebase
-
 export const app = initializeApp(firebaseConfig)
-
 export const db = getFirestore()
 
-// const analytics =
 getAnalytics(app)
 
 export type ObjectToAdd = {
@@ -63,27 +71,37 @@ export type UserData = {
 export type AdditionalInformation = {
   displayName?: string
 }
-export const auth = getAuth(app);
+export const auth = getAuth(app)
 
-export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googleProvider);
+export const signInWithGooglePopup = () => {
+  return signInWithPopup(auth, googleProvider)
+}
+
 export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, googleProvider);
+  signInWithRedirect(auth, googleProvider)
 
+export const linkEmailSignInWithGoogle = (user: User) =>
+  linkWithPopup(user, googleProvider)
+
+export const linkGoogleWithEmailSignIn = (
+  user: User,
+  email: string,
+  password: string
+) => {
+  const credential = EmailAuthProvider.credential(email, password)
+  return linkWithCredential(user, credential)
+}
 
 export const addCollectionAndDocumentsToUser = async <T extends ObjectToAdd>(
   collectionKey: string,
   objectToAdd: T,
-  userId: string 
+  userId: string
 ): Promise<void> => {
   const userCollectionRef = collection(db, 'users', userId, collectionKey)
 
   const batch = writeBatch(db)
 
-  const newDocRef = doc(
-    userCollectionRef,
-    objectToAdd.id
-  )
+  const newDocRef = doc(userCollectionRef, objectToAdd.id)
   batch.set(newDocRef, objectToAdd)
 
   await batch.commit()
@@ -149,14 +167,14 @@ export const updateExpenseInCollection = async (
         (expense: Expense) => expense.id === expenseId
       )
 
-      if (expenseIndex !== -1) {        
+      if (expenseIndex !== -1) {
         const updatedExpense = {
           ...expenses[expenseIndex],
           ...updatedExpenseData,
         }
-        
+
         expenses[expenseIndex] = updatedExpense
-       
+
         await updateDoc(triCountDocRef, { expenses })
         console.log('Expense updated successfully')
       } else {
@@ -187,7 +205,7 @@ export const removeTriCountFromCollection = async (
 
 export const createUserDocumentFromAuth = async (
   userAuth: User,
-  additionalInformation = {} as AdditionalInformation
+  displayName?: string
 ): Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!userAuth) return
 
@@ -195,14 +213,13 @@ export const createUserDocumentFromAuth = async (
   const userSnapShot = await getDoc(userDocRef)
 
   if (!userSnapShot.exists()) {
-    const { displayName, email } = userAuth
+    const { email } = userAuth
     const createdAt = new Date()
     try {
       await setDoc(userDocRef, {
         displayName,
         email,
         createdAt,
-        ...additionalInformation,
       })
     } catch (error) {
       console.log('error when creating user', error)
@@ -223,18 +240,3 @@ export const getCategoriesAndDocuments: (
   const querySnapshot = await getDocs(q)
   return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as TriCount)
 }
-
-// export const getCurrentUser = ():Promise<User | null> => {
-//   return new Promise((resolve, reject) => {
-//     const unsubscribe = onAuthStateChanged(
-//       auth,
-//       (userAuth) => {
-//         unsubscribe();
-//         resolve(userAuth);
-//       },
-//       reject
-//     );
-//   });
-// };
-// export const onAuthStateChangedListener = (callback) =>
-//   onAuthStateChanged(auth, callback);

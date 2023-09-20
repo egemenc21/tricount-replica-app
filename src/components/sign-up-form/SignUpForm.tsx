@@ -7,26 +7,37 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth'
 import { toast } from 'react-toastify'
-import { auth } from '../../utils/firebase/firebase.utils'
+import {
+  auth,
+  createUserDocumentFromAuth,
+  
+} from '../../utils/firebase/firebase.utils'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
 
 const defaultFormFields = {
+  displayName: '',
   email: '',
   password: '',
+  confirmPassword: '',
 }
 
 function SignUpForm() {
   const [formFields, setFormFields] = useState(defaultFormFields)
-  const { email, password } = formFields
+  const { displayName, email, password, confirmPassword } = formFields
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match')
+      return
+    }
     try {
       const data = await createUserWithEmailAndPassword(auth, email, password)
       const { user } = data
       if (user) {
         navigate('/home')
+        await createUserDocumentFromAuth(user, displayName)        
       }
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
@@ -36,7 +47,6 @@ function SignUpForm() {
   }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-
     setFormFields({ ...formFields, [name]: value })
   }
 
@@ -47,6 +57,15 @@ function SignUpForm() {
         Register with your email and password
       </span>
       <form onSubmit={handleSubmit} className="auth-form-container">
+        <input
+          type="text"
+          name="displayName"
+          value={displayName}
+          onChange={handleChange}
+          required
+          className="auth-input"
+          placeholder="Your name"
+        />
         <input
           type="email"
           name="email"
@@ -64,6 +83,15 @@ function SignUpForm() {
           required
           className="auth-input"
           placeholder="Your password"
+        />
+        <input
+          type="password"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={handleChange}
+          required
+          className="auth-input"
+          placeholder="Confirm your password"
         />
         <Button buttonType={BUTTON_TYPE_CLASSES.inverted}>Register</Button>
       </form>

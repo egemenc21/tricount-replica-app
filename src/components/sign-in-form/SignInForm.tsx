@@ -47,8 +47,8 @@ function SignInForm() {
   }
   const signInWithGoogle = async () => {
     try {
-      const data = await signInWithGooglePopup()
-      if (data.user) {
+      const { user } = await signInWithGooglePopup()
+      if (user) {
         navigate('/home')
       }
     } catch (error) {
@@ -91,7 +91,7 @@ function SignInForm() {
           className="auth-input"
           placeholder="Your password"
         />
-        <div className='button-container'>
+        <div className="button-container">
           <Button buttonType={BUTTON_TYPE_CLASSES.base}>Sign In</Button>
           <Button
             buttonType={BUTTON_TYPE_CLASSES.google}

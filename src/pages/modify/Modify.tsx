@@ -56,28 +56,15 @@ function ModifyExpense() {
     const updatedFormFields = {
       ...formFields,
       id,
-    }
-    console.log(updatedFormFields)
-
-    // Adding expense to yourself
-    // if (paidBy === forWhom.find(() => paidBy) && forWhom.length === 1) {
-    //   toast.error('You can not add expense for yourself')
-    //   return
-    // }
+      price: +price
+    }    
 
     if (forWhom.length === 0) {
       toast.error('Please select that expense is for whom')
       return
     }
-
     if (user) {
-      //   await addExpenseToCollection(
-      //     'tricounts',
-      //     updatedFormFields,
-      //     user.uid,
-      //     tricount
-      //   )
-      await updateExpenseInCollection(
+        await updateExpenseInCollection(
         user.uid,
         tricountId,
         expenseId,
