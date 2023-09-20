@@ -10,7 +10,7 @@ import NotFound from './pages/NotFound'
 import Auth from './pages/auth/Auth'
 import store from './store/store'
 import { useAppDispatch } from './hooks'
-import { setCurrentUser, signOutSuccess } from './store/user/user.reducer'
+import { setCurrentUser } from './store/user/user.reducer'
 import { createUserDocumentFromAuth } from './utils/firebase/firebase.utils'
 
 function App() {
@@ -20,13 +20,12 @@ function App() {
     const auth = getAuth()
     onAuthStateChanged(auth, async (user) => {
       if (user) {
+        console.log('user signed in')
         await createUserDocumentFromAuth(user)
         dispatch(setCurrentUser(user))
-      } else {
-        dispatch(signOutSuccess())
       }
     })
-  }, [dispatch])
+  })
 
   return (
     <Routes>

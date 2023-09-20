@@ -15,7 +15,7 @@ interface ExpensesListItemProps {
 }
 function ExpensesListItem({ expense, symbol }: ExpensesListItemProps) {
   const { id, title, paidBy, price, date } = expense
-  const { tricount } = useParams<
+  const { tricountId } = useParams<
     keyof TriCountRouteParams
   >() as TriCountRouteParams
   const user = useAppSelector(selectCurrentUser)
@@ -29,7 +29,7 @@ function ExpensesListItem({ expense, symbol }: ExpensesListItemProps) {
         'tricounts',
         expense,
         user.uid,
-        tricount
+        tricountId
       )
     }
   }

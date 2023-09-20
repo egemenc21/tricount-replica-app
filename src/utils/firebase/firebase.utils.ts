@@ -17,7 +17,6 @@ import {
   writeBatch,
 } from 'firebase/firestore'
 import { Expense, TriCount } from '../../store/tricounts/tricounts.types'
-import { stringConverter } from '../format/format.utils'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCtbJvpuLUGUR0n1OUuAoE5Xe14tYlF7Rw',
@@ -45,7 +44,7 @@ export const db = getFirestore()
 getAnalytics(app)
 
 export type ObjectToAdd = {
-  title: string
+  id: string
 }
 export interface ObjectToGet {
   userId: string
@@ -59,43 +58,18 @@ export type AdditionalInformation = {
   displayName?: string
 }
 
-// export const addCollectionAndDocumentsToUser = async <T extends ObjectToAdd>(
-//   collectionKey: string,
-//   objectToAdd: T[],
-//   userId: string // Assuming userId is the user's unique identifier
-// ): Promise<void> => {
-//   const userCollectionRef = collection(db, 'users', userId, collectionKey)
-//   console.log(userCollectionRef)
-
-//   const batch = writeBatch(db)
-
-//   // Now add objects under the user's subcollection
-//   objectToAdd.forEach(async (object) => {
-//     const newDocRef = doc(
-//       userCollectionRef,
-//       stringConverter(object.title.toLowerCase())
-//     )
-//     batch.set(newDocRef, object)
-//   })
-
-//   await batch.commit()
-//   console.log('done')
-// }
 export const addCollectionAndDocumentsToUser = async <T extends ObjectToAdd>(
   collectionKey: string,
   objectToAdd: T,
-  userId: string // Assuming userId is the user's unique identifier
+  userId: string 
 ): Promise<void> => {
   const userCollectionRef = collection(db, 'users', userId, collectionKey)
-  console.log(userCollectionRef)
 
   const batch = writeBatch(db)
 
-  // Now add objects under the user's subcollection
-
   const newDocRef = doc(
     userCollectionRef,
-    stringConverter(objectToAdd.title.toLowerCase())
+    objectToAdd.id
   )
   batch.set(newDocRef, objectToAdd)
 
@@ -106,10 +80,10 @@ export const addExpenseToCollection = async <T extends Expense>(
   collectionKey: string,
   objectToAdd: T,
   userId: string,
-  triCountName: string
+  triCountId: string
 ): Promise<void> => {
   const triCountsCollectionRef = collection(db, 'users', userId, collectionKey)
-  const triCountDocRef = doc(triCountsCollectionRef, triCountName)
+  const triCountDocRef = doc(triCountsCollectionRef, triCountId)
 
   try {
     // Use updateDoc to add the new object to the existing array
@@ -127,10 +101,10 @@ export const removeExpenseFromCollection = async <T extends Expense>(
   collectionKey: string,
   objectToRemove: T,
   userId: string,
-  triCountName: string
+  triCountId: string
 ): Promise<void> => {
   const triCountsCollectionRef = collection(db, 'users', userId, collectionKey)
-  const triCountDocRef = doc(triCountsCollectionRef, triCountName)
+  const triCountDocRef = doc(triCountsCollectionRef, triCountId)
 
   try {
     // Use updateDoc to remove the object from the existing array
@@ -146,34 +120,30 @@ export const removeExpenseFromCollection = async <T extends Expense>(
 
 export const updateExpenseInCollection = async (
   userId: string,
-  triCountName: string,
+  triCountId: string,
   expenseId: string,
   updatedExpenseData: Partial<Expense>
 ): Promise<void> => {
   const triCountsCollectionRef = collection(db, 'users', userId, 'tricounts')
-  const triCountDocRef = doc(triCountsCollectionRef, triCountName)
+  const triCountDocRef = doc(triCountsCollectionRef, triCountId)
 
   try {
     const triCountDocSnapshot = await getDoc(triCountDocRef)
     if (triCountDocSnapshot.exists()) {
       const expenses = triCountDocSnapshot.data()?.expenses || []
 
-      // Find the index of the expense to be updated
       const expenseIndex = expenses.findIndex(
         (expense: Expense) => expense.id === expenseId
       )
 
-      if (expenseIndex !== -1) {
-        // Create the updated expense object
+      if (expenseIndex !== -1) {        
         const updatedExpense = {
           ...expenses[expenseIndex],
           ...updatedExpenseData,
         }
-
-        // Update the expense in the array
+        
         expenses[expenseIndex] = updatedExpense
-
-        // Update the Firestore document with the updated array
+       
         await updateDoc(triCountDocRef, { expenses })
         console.log('Expense updated successfully')
       } else {
@@ -190,9 +160,9 @@ export const updateExpenseInCollection = async (
 export const removeTriCountFromCollection = async (
   collectionKey: string,
   userId: string,
-  triCountName: string
+  triCountId: string
 ): Promise<void> => {
-  const documentRef = doc(db, 'users', userId, collectionKey, triCountName)
+  const documentRef = doc(db, 'users', userId, collectionKey, triCountId)
 
   try {
     await deleteDoc(documentRef)

@@ -1,10 +1,14 @@
+#root {
+  position: relative;
+}
 .expenses-container {
-  height: 86%;
+  height: 70%;
 }
 .all-expenses {
-  height: 90%;
+  height: 50%;
   overflow-y: scroll;
 }
-footer {
-  height: 10%;
+footer { 
+  position: absolute;
+  bottom: 0;
 }

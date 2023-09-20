@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './sign-in-form.styles.scss'
 import {
   signInWithEmailAndPassword,
@@ -8,7 +9,6 @@ import {
 import { toast } from 'react-toastify'
 import { auth } from '../../utils/firebase/firebase.utils'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
-import { useNavigate } from 'react-router-dom'
 
 const defaultFormFields = {
   email: '',
@@ -22,7 +22,6 @@ function SignInForm() {
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     try {
       const data = await signInWithEmailAndPassword(auth, email, password)
       const { user } = data

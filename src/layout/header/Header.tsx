@@ -10,10 +10,10 @@ import { fetchTriCountsAsync } from '../../store/tricounts/tricounts.reducer'
 import { selectCurrentUser } from '../../store/user/user.selector'
 
 function Header() {
-  const { tricount } = useParams<
+  const { tricountId } = useParams<
     keyof TriCountRouteParams
   >() as TriCountRouteParams
-  const eachTriCount = useEachTriCount(tricount)
+  const eachTriCount = useEachTriCount(tricountId)
   const { title, participators } = eachTriCount
   const user = useAppSelector(selectCurrentUser)
   const dispatch = useAppDispatch()

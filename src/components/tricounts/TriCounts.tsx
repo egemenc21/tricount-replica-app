@@ -6,17 +6,30 @@ import TriCountListItem from '../tricount-list-item/TriCountListItem'
 import './tricounts.styles.scss'
 
 export default function TriCounts() {
-  const tricountsData = useAppSelector(selectTriCounts)  
+  const tricountsData = useAppSelector(selectTriCounts) 
 
   return (
-    <div className='tricounts-container'>
+    <div className="tricounts-container">
+      {tricountsData && tricountsData.length === 0 ? (
+        <div>You do not have any tricounts yet</div>
+      ) : null}
       <ul className="tricounts-list">
-        {tricountsData && tricountsData.map(({ id, title, description }) => (
-          <TriCountListItem key={id} title={title} description={description} id={id} />
-        ))}
+        {tricountsData &&
+          tricountsData.map(({ id, title, description }) => (
+            <TriCountListItem
+              key={id}
+              title={title}
+              description={description}
+              id={id}
+            />
+          ))}
       </ul>
-      <Link to="add-tricount" className='add-tricount'>
-        <Button buttonType={BUTTON_TYPE_CLASSES.base} type="button" className='add-tricount'>
+      <Link to="add-tricount" className="add-tricount">
+        <Button
+          buttonType={BUTTON_TYPE_CLASSES.base}
+          type="button"
+          className="add-tricount"
+        >
           New Tricount
         </Button>
       </Link>

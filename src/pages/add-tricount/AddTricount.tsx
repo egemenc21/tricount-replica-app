@@ -79,8 +79,7 @@ function AddTricount() {
       const { selectedIndex } = selectElement
       if (selectedIndex !== -1) {
         const selectedOption = selectElement.options[selectedIndex]
-        const dataSymbol = selectedOption.getAttribute('data-symbol')
-        console.log('Data Symbol:', dataSymbol)
+        const dataSymbol = selectedOption.getAttribute('data-symbol')    
 
         setFormFields({
           ...formFields,
@@ -152,9 +151,9 @@ function AddTricount() {
             required
           >
             {allCurrency &&
-              allCurrency.map((item) => (
+              allCurrency.map((item,index) => (
                 <option
-                  key={item.currency}
+                  key={index}
                   data-symbol={item.symbol}
                   value={item.abbreviation}
                 >

@@ -10,7 +10,8 @@ const initialState: ExpensesState = {
 }
 
 const addExpense = (expenses: Expense[], expenseToAdd: Expense) => {
-  return [...expenses, expenseToAdd]
+  if (expenses) return [...expenses, expenseToAdd]
+  return [expenseToAdd]
 }
 const removeExpense = (expenses: Expense[], expenseId: string) => {
   const existingExpense = expenses.find((expense) => expense.id === expenseId)

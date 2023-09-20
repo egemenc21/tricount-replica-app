@@ -12,8 +12,8 @@ interface CheckboxProps {
 }
 
 function Checkbox({ handleChange, forWhom, price }: CheckboxProps) {
-  const { tricount } = useParams<keyof TriCountRouteParams>() as TriCountRouteParams
-  const eachTriCount = useEachTriCount(tricount)
+  const { tricountId } = useParams<keyof TriCountRouteParams>() as TriCountRouteParams
+  const eachTriCount = useEachTriCount(tricountId)
   const { participators } = eachTriCount
 
   const share = calculateShare(forWhom, price)

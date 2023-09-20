@@ -15,7 +15,7 @@ function BalancesListItem({ money, user, symbol }: BalancesListItemProps) {
       <div
         className={`balances-money ${isDebt ? 'debt' : 'rich'}`}
         dangerouslySetInnerHTML={{
-          __html: `${sign}${symbol}${positiveAmount.toFixed(1)}`,
+          __html: `${sign} ${symbol}${positiveAmount.toFixed(1)}`,
         }}
       />
       <h3 className="balances-user">{user}</h3>

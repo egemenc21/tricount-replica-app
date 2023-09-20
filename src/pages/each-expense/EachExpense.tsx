@@ -18,7 +18,7 @@ export type ExpenseRouteParams = {
   expenseId: string
 }
 function EachExpense({ currencyData }: EachExpenseProps) {
-  const { tricount } = useParams<
+  const { tricountId } = useParams<
     keyof TriCountRouteParams
   >() as TriCountRouteParams
 
@@ -44,7 +44,7 @@ function EachExpense({ currencyData }: EachExpenseProps) {
     <>
       <div className="expense-header">
         <div className="expense-route-container">
-          <Link to={`/home/${tricount}`} onClick={handleOnClick}>
+          <Link to={`/home/${tricountId}`} onClick={handleOnClick}>
             <AiOutlineArrowLeft size={25} />
           </Link>
           <Link to="modify">MODIFY</Link>

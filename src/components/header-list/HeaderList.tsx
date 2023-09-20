@@ -4,17 +4,17 @@ import { CgMenuBoxed, CgArrowsExchange } from 'react-icons/cg'
 
 
 export type TriCountRouteParams = {
-  tricount: string
+  tricountId: string
 }
 
 
 function HeaderList() {
-  const { tricount } = useParams<keyof TriCountRouteParams>() as TriCountRouteParams
+  const { tricountId } = useParams<keyof TriCountRouteParams>() as TriCountRouteParams
 
   return (
     <ul className="header-list">
       <NavLink
-        to={`/home/${tricount}`} end
+        to={`/home/${tricountId}`} end
         className={({ isActive }) => (isActive ? 'active' : 'de-active')}
       >
         <li className="header-list-item">

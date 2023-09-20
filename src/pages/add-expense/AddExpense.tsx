@@ -17,10 +17,10 @@ import { addExpenseToExpenses } from '../../store/expenses/expenses.reducer'
 function AddExpense() {
   const user = useAppSelector(selectCurrentUser)
   const navigate = useNavigate()
-  const { tricount } = useParams<
+  const { tricountId } = useParams<
     keyof TriCountRouteParams
   >() as TriCountRouteParams
-  const eachTriCount = useEachTriCount(tricount)
+  const eachTriCount = useEachTriCount(tricountId)
   const { participators } = eachTriCount
   const defaultFormFields: Expense = {
     id: '',
@@ -55,13 +55,13 @@ function AddExpense() {
         'tricounts',
         updatedFormFields,
         user.uid,
-        tricount
+        tricountId
       )
       dispatch(addExpenseToExpenses(updatedFormFields))
       
     }
 
-    navigate(`/home/${tricount}`)
+    navigate(`/home/${tricountId}`)
   }
 
   const handleChange = (
@@ -94,7 +94,7 @@ function AddExpense() {
   return (
     <section className="add-expense-section">
       <nav className="add-expense-header">
-        <Link to={`/home/${tricount}`}>
+        <Link to={`/home/${tricountId}`}>
           <AiOutlineArrowLeft size={25} />
         </Link>
         <div className="add-expense-heading">New expense</div>

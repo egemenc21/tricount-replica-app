@@ -26,7 +26,7 @@ function Home() {
     <Routes>
       <Route path="/" element={<HomePreview />} />
       <Route path="/add-tricount" element={<AddTricount />} />
-      <Route path=":tricount/*" element={<EachTriCount />} />
+      <Route path=":tricountId/*" element={<EachTriCount />} />
     </Routes>
   )
 }

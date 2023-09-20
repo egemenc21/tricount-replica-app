@@ -17,20 +17,21 @@ import ModifyExpense from '../modify/Modify'
 
 function EachTriCount() {
   const dispatch = useAppDispatch()
-  const { tricount } = useParams<
+  const { tricountId } = useParams<
     keyof TriCountRouteParams
   >() as TriCountRouteParams
+  
   const tricountsMap = useAppSelector(selectTriCountsMap)
   const isLoading = useAppSelector(selectTriCountsIsLoading)
-  const [eachTriCount, setEachTriCount] = useState(tricountsMap[tricount])
+  const [eachTriCount, setEachTriCount] = useState(tricountsMap[tricountId])
 
   useEffect(() => {
-    setEachTriCount(tricountsMap[tricount])
+    setEachTriCount(tricountsMap[tricountId])
     if (eachTriCount) {
       const { expenses } = eachTriCount
       dispatch(setExpenses(expenses))
     }
-  }, [tricountsMap, tricount, eachTriCount, dispatch])
+  }, [tricountsMap, tricountId, eachTriCount, dispatch])
 
   return isLoading ? (
     <Vortex

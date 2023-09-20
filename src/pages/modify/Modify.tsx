@@ -22,14 +22,14 @@ function ModifyExpense() {
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
   const navigate = useNavigate()
-  const { tricount } = useParams<
+  const { tricountId } = useParams<
     keyof TriCountRouteParams
   >() as TriCountRouteParams
 
   const { expenseId } = useParams<
     keyof ExpenseRouteParams
   >() as ExpenseRouteParams
-  const eachTriCount = useEachTriCount(tricount)
+  const eachTriCount = useEachTriCount(tricountId)
   const { participators } = eachTriCount
   const defaultFormFields: Expense = {
     id: '',
@@ -79,14 +79,14 @@ function ModifyExpense() {
       //   )
       await updateExpenseInCollection(
         user.uid,
-        tricount,
+        tricountId,
         expenseId,
         updatedFormFields
       )
       dispatch(updateExpenseInExpenses(updatedFormFields))
     }
 
-    navigate(`/home/${tricount}/${expenseId}`)
+    navigate(`/home/${tricountId}/${expenseId}`)
   }
 
   const handleChange = (
@@ -120,7 +120,7 @@ function ModifyExpense() {
   return (
     <section className="add-expense-section">
       <nav className="add-expense-header">
-        <Link to={`/home/${tricount}/${expenseId}`}>
+        <Link to={`/home/${tricountId}/${expenseId}`}>
           <AiOutlineArrowLeft size={25} />
         </Link>
         <div className="add-expense-heading">Modify the expense</div>

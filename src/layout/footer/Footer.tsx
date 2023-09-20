@@ -25,7 +25,7 @@ function Footer({ symbol }: FooterProps) {
             <li
               key={userId}
               dangerouslySetInnerHTML={{
-                __html: `${userId}: ${totalExpensesOnEachUser[userId]}${symbol}`,
+                __html: `${userId}: ${symbol}${totalExpensesOnEachUser[userId]}`,
               }}
             />
           ))}
@@ -43,7 +43,7 @@ function Footer({ symbol }: FooterProps) {
         {totalExpenses ? (
           <span
             dangerouslySetInnerHTML={{
-              __html: `${totalExpenses}${symbol}`,
+              __html: ` ${symbol}${totalExpenses}`,
             }}
           />
         ) : (

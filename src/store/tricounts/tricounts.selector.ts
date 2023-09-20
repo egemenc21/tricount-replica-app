@@ -2,7 +2,6 @@ import { createSelector } from 'reselect'
 import { RootState } from '../store'
 import { TriCountsState } from './tricounts.reducer'
 import { TriCountMap } from './tricounts.types'
-import { stringConverter } from '../../utils/format/format.utils'
 
 export const selectTriCountsReducer = (state: RootState): TriCountsState => {
   return state.tricounts
@@ -17,14 +16,13 @@ export const selectTriCountsMap = createSelector(
   [selectTriCountsReducer],
   (tricounts): TriCountMap =>
     tricounts.value.reduce((acc, tricount) => {
-      const { id, title, description, participators, expenses,currency, currencyData } = tricount
-      const convertedTitle = stringConverter(title)
-      acc[convertedTitle] = { id, title, description, participators, expenses,currency,currencyData}
+      const { id, title, description, participators, expenses,currency, currencyData } = tricount      
+      acc[id] = { id, title, description, participators, expenses,currency,currencyData}
       return acc
     }, {} as TriCountMap)
 )
 
-export const selectEachTriCount= createSelector(
+export const selectEachTriCount = createSelector(
   [selectTriCountsMap, (_state: RootState, tricountParam: string) => tricountParam],
   (tricountsMap, tricountParam) => {
     
