@@ -7,10 +7,7 @@ import {
   GoogleAuthProvider,
   linkWithPopup,
   linkWithCredential,
-  EmailAuthProvider,
-  fetchSignInMethodsForEmail,
-  EmailAuthCredential,
-  AuthCredential,
+  EmailAuthProvider, 
 } from 'firebase/auth'
 import { getAnalytics } from 'firebase/analytics'
 import {
