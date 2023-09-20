@@ -19,6 +19,7 @@ function BaseButton({
   type = 'submit'
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
+    // eslint-disable-next-line react/button-has-type
     <button className="btn base-btn" onClick={onClick} type={type}>
       {children}
     </button>
@@ -26,9 +27,10 @@ function BaseButton({
 }
 function GoogleSignInButton({
   children,
+  onClick
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <button className="btn google-btn" type="submit">
+    <button className="btn google-btn" type="button" onClick={onClick}>
       {children}
     </button>
   )

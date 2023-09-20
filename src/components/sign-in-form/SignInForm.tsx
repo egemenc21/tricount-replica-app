@@ -6,8 +6,12 @@ import {
   AuthError,
   AuthErrorCodes,
 } from 'firebase/auth'
+
 import { toast } from 'react-toastify'
-import { auth } from '../../utils/firebase/firebase.utils'
+import {
+  auth,
+  signInWithGooglePopup,
+} from '../../utils/firebase/firebase.utils'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
 
 const defaultFormFields = {
@@ -38,6 +42,20 @@ function SignInForm() {
           break
         default:
           toast.error('Please try again later')
+      }
+    }
+  }
+  const signInWithGoogle = async () => {
+    try {
+      const data = await signInWithGooglePopup()
+      if (data.user) {
+        navigate('/home')
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      } else {
+        toast.error('An error occurred')
       }
     }
   }
@@ -73,7 +91,15 @@ function SignInForm() {
           className="auth-input"
           placeholder="Your password"
         />
-        <Button buttonType={BUTTON_TYPE_CLASSES.base}>Sign In</Button>
+        <div className='button-container'>
+          <Button buttonType={BUTTON_TYPE_CLASSES.base}>Sign In</Button>
+          <Button
+            buttonType={BUTTON_TYPE_CLASSES.google}
+            onClick={signInWithGoogle}
+          >
+            Sign In With Google
+          </Button>
+        </div>
       </form>
     </section>
   )

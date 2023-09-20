@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { User, getAuth } from 'firebase/auth'
+import { User, getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'firebase/auth'
 import { getAnalytics } from 'firebase/analytics'
 import {
   QueryDocumentSnapshot,
@@ -18,6 +18,7 @@ import {
 } from 'firebase/firestore'
 import { Expense, TriCount } from '../../store/tricounts/tricounts.types'
 
+
 const firebaseConfig = {
   apiKey: 'AIzaSyCtbJvpuLUGUR0n1OUuAoE5Xe14tYlF7Rw',
 
@@ -33,11 +34,16 @@ const firebaseConfig = {
 
   measurementId: 'G-JZMLEQXVV0',
 }
+const googleProvider = new GoogleAuthProvider();
+
+googleProvider.setCustomParameters({
+  prompt: 'select_account',
+});
 
 // Initialize Firebase
 
 export const app = initializeApp(firebaseConfig)
-export const auth = getAuth(app)
+
 export const db = getFirestore()
 
 // const analytics =
@@ -57,6 +63,13 @@ export type UserData = {
 export type AdditionalInformation = {
   displayName?: string
 }
+export const auth = getAuth(app);
+
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
+
 
 export const addCollectionAndDocumentsToUser = async <T extends ObjectToAdd>(
   collectionKey: string,

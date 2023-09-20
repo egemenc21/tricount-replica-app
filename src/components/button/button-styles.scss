@@ -26,6 +26,12 @@ $fifth-color: #d62b2b;
 .inverted-btn:hover {
   background-color: $fourth-color;
 }
+.google-btn {
+  background-color: $fifth-color;  
+}
+.google-btn:hover {
+  background-color: $fourth-color;
+}
 .log-out-btn {
   background-color: $fifth-color;
   padding: 0.25rem 1rem;
@@ -35,6 +41,7 @@ $fifth-color: #d62b2b;
 .log-out-btn:hover {
   background-color: $fourth-color;
 }
+
 .add-expense-btn {
   background-color: $primary-color;
   border-radius: 50%;
