@@ -25,18 +25,23 @@
 }
 label {
   width: 60%;
-  .currency {
+  .add-participant {
     width: 100%;
-  }
-  .add-participant{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 5px;
-    button{
+    button {
       padding: 0 1.5rem;
       height: 2rem;
     }
-    
-  }  
+    .participant {
+      width: 100%;
+    }
+  }
 }
-
+@media screen and (max-width: 400px) {
+  .add-participant {
+    flex-direction: column;
+  }
+}

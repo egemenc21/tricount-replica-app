@@ -153,9 +153,9 @@ function AddTricount() {
             required
           >
             {allCurrency &&
-              allCurrency.map((item, index) => (
+              allCurrency.map((item) => (
                 <option
-                  key={index}
+                  key={item.currency}
                   data-symbol={item.symbol}
                   value={item.abbreviation}
                 >
@@ -187,7 +187,7 @@ function AddTricount() {
         </label>
         <div>Participators:</div>
         {participators &&
-          participators.map((item, index) => <p key={index}>{item}</p>)}
+          participators.map((item) => <p key={item}>{item}</p>)}
 
         <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
           Add Tricount
