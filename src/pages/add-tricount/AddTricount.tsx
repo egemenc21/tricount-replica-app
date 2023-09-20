@@ -11,6 +11,7 @@ import { selectCurrentUser } from '../../store/user/user.selector'
 import { fetchTriCountsAsync } from '../../store/tricounts/tricounts.reducer'
 import fetchEmptyCurrencyData from '../../utils/db/db'
 import { CurrencyData } from '../../store/tricounts/tricounts.types'
+import currencyData from '../../db/currency.json'
 
 interface FormFields {
   id: string
@@ -40,21 +41,12 @@ function AddTricount() {
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
   const [allCurrency, setAllCurrency] = useState<
-    { currency: string; abbreviation: string; symbol: string }[]
+    { currency: string; abbreviation: string; symbol: string | null }[]
   >([])
   const [formFields, setFormFields] = useState(defaultFormFields)
 
   useEffect(() => {
-    const fetchCurrencyData = async () => {
-      try {
-        const response = await fetchEmptyCurrencyData()
-        setAllCurrency(response) // Update the state with fetched data
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    fetchCurrencyData()
+    setAllCurrency(currencyData)
   }, [])
 
   const { title, description, currency, participant, participators } =

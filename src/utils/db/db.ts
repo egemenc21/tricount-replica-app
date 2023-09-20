@@ -1,6 +1,6 @@
-export default async function fetchEmptyCurrencyData() {
+export default async function fetchEmptyCurrencyData(url:string) {
   try {
-    const response = await fetch('/db/currency.json')
+    const response = await fetch(url)
     if (!response.ok) {
       throw new Error('Network response was not ok')
     }
