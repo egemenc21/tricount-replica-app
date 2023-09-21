@@ -14,7 +14,8 @@ interface BalancesProps {
 
 function Balances({ participators, currencyData }: BalancesProps) {
   const expenses = useAppSelector(selectExpenses)
-  const balances = calculateBalances({ participators, expenses })
+  const balances = calculateBalances({ participators, expenses }) 
+  
 
   // Initialize an empty array to store owesData
   const owesData: OwesData[] = []

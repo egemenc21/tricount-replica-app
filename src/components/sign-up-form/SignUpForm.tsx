@@ -5,12 +5,12 @@ import {
   AuthError,
   AuthErrorCodes,
   createUserWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth'
 import { toast } from 'react-toastify'
 import {
   auth,
   createUserDocumentFromAuth,
-  
 } from '../../utils/firebase/firebase.utils'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
 
@@ -37,7 +37,10 @@ function SignUpForm() {
       const { user } = data
       if (user) {
         navigate('/home')
-        await createUserDocumentFromAuth(user, displayName)        
+        await updateProfile(user, { displayName }).catch((err) =>
+          console.log(err)
+        )
+        await createUserDocumentFromAuth(user)
       }
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {

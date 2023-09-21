@@ -201,8 +201,7 @@ export const removeTriCountFromCollection = async (
 }
 
 export const createUserDocumentFromAuth = async (
-  userAuth: User,
-  displayName?: string
+  userAuth: User,  
 ): Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!userAuth) return
 
@@ -210,7 +209,7 @@ export const createUserDocumentFromAuth = async (
   const userSnapShot = await getDoc(userDocRef)
 
   if (!userSnapShot.exists()) {
-    const { email } = userAuth
+    const { email,displayName } = userAuth
     const createdAt = new Date()
     try {
       await setDoc(userDocRef, {

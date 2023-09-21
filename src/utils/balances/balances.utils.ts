@@ -38,7 +38,7 @@ export default function calculateBalances({
       const expenseShare = price / forWhom.length
 
       // Deduct the share from the person who paid
-      balances[paidBy.toLowerCase()] -= price
+      balances[paidBy] -= price
 
       // Add the share to each person for whom the expense is shared
       forWhom.forEach((participant) => {

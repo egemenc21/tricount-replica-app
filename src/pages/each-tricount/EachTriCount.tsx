@@ -20,8 +20,9 @@ function EachTriCount() {
   const { tricountId } = useParams<
     keyof TriCountRouteParams
   >() as TriCountRouteParams
-  
+
   const tricountsMap = useAppSelector(selectTriCountsMap)
+
   const isLoading = useAppSelector(selectTriCountsIsLoading)
   const [eachTriCount, setEachTriCount] = useState(tricountsMap[tricountId])
 
@@ -65,7 +66,7 @@ function EachTriCount() {
           path=":expenseId"
           element={<EachExpense currencyData={eachTriCount.currencyData} />}
         />
-        <Route path=":expenseId/modify" element={<ModifyExpense/>} />
+        <Route path=":expenseId/modify" element={<ModifyExpense />} />
         <Route path="add-expense" element={<AddExpense />} />
       </Routes>
     )

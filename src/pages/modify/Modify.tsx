@@ -41,11 +41,13 @@ function ModifyExpense() {
   }
   const [formFields, setFormFields] = useState(defaultFormFields)
   const expense = useAppSelector(selectExpenseById(expenseId))
+  
   useEffect(() => {
     if (expense) {
       setFormFields(expense)
     }
   }, [expense])
+
   if (!expense) {
     return <p>Expense not found</p>
   }

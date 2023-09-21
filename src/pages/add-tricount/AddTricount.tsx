@@ -21,32 +21,39 @@ interface FormFields {
   participant: string
   participators: string[]
 }
-
-const defaultFormFields: FormFields = {
-  id: '',
-  title: '',
-  description: '',
-  currency: 'eur',
-  currencyData: {
-    abbreviation: 'EUR',
-    symbol: '€',
-  },
-  participant: '',
-  participators: [],
+interface CurrencyProps {
+  currency: string
+  abbreviation: string
+  symbol: string | null
 }
 
 function AddTricount() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
-  const [allCurrency, setAllCurrency] = useState<
-    { currency: string; abbreviation: string; symbol: string | null }[]
-  >([])
+
+  const [allCurrency, setAllCurrency] = useState<CurrencyProps[]>([])
+
+  const defaultFormFields: FormFields = {
+    id: '',
+    title: '',
+    description: '',
+    currency: 'eur',
+    currencyData: {
+      abbreviation: 'EUR',
+      symbol: '€',
+    },
+    participant: '',
+    participators: [],
+  }
   const [formFields, setFormFields] = useState(defaultFormFields)
 
   useEffect(() => {
     setAllCurrency(currencyData)
-  }, [])
+    // if (user) {
+    //   setFormFields({ ...formFields, participant: user?.displayName })
+    // }
+  }, [formFields, user])
 
   const { title, description, currency, participant, participators } =
     formFields
@@ -57,16 +64,17 @@ function AddTricount() {
     const id = nanoid()
     const { participant: formParticipant, ...updatedFormFields } = formFields
     updatedFormFields.id = id
-
-    if (user) {
+    if (participators.length !== 0 && user) {
       await addCollectionAndDocumentsToUser(
         'tricounts',
         updatedFormFields,
         user.uid
       )
       dispatch(fetchTriCountsAsync(user?.uid, 'tricounts'))
+      navigate('/home')
+    } else {
+      toast.error('Please add at least one participant')
     }
-    navigate('/home')
   }
 
   const handleChange = (
@@ -79,7 +87,7 @@ function AddTricount() {
       const { selectedIndex } = selectElement
       if (selectedIndex !== -1) {
         const selectedOption = selectElement.options[selectedIndex]
-        const dataSymbol = selectedOption.getAttribute('data-symbol')    
+        const dataSymbol = selectedOption.getAttribute('data-symbol')
 
         setFormFields({
           ...formFields,
@@ -100,6 +108,7 @@ function AddTricount() {
         setFormFields({
           ...formFields,
           participators: [...participators, participant],
+          participant: '',
         })
       } else {
         toast.error('Participant already exists in the list.')
@@ -137,7 +146,6 @@ function AddTricount() {
             placeholder="Description"
             value={description}
             onChange={handleChange}
-            required
           />
         </label>
         <label>
@@ -151,7 +159,7 @@ function AddTricount() {
             required
           >
             {allCurrency &&
-              allCurrency.map((item,index) => (
+              allCurrency.map((item, index) => (
                 <option
                   key={index}
                   data-symbol={item.symbol}
@@ -172,7 +180,6 @@ function AddTricount() {
               placeholder="Participant"
               value={participant}
               onChange={handleChange}
-              required
             />
             <Button
               buttonType={BUTTON_TYPE_CLASSES.base}
@@ -184,8 +191,7 @@ function AddTricount() {
           </div>
         </label>
         <div>Participators:</div>
-        {participators &&
-          participators.map((item) => <p key={item}>{item}</p>)}
+        {participators && participators.map((item) => <p key={item}>{item}</p>)}
 
         <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
           Add Tricount
