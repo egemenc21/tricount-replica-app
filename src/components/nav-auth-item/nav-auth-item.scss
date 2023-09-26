@@ -1,6 +1,8 @@
-.nav-auth-container { 
+.nav-auth-container {
+  width: 300px;
   padding: 0.5rem;
-  .username {    
+  .username {
+    text-align: center;
     color: white;
     margin-right: 1rem;
     padding-bottom: 1rem;
@@ -9,3 +11,4 @@
     margin-top: 0.5rem;
   }
 }
+
