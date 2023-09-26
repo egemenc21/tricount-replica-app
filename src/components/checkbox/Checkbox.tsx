@@ -8,11 +8,14 @@ interface CheckboxProps {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void
   forWhom: string[]
-  price: number  
+  price: number
+  symbol: string
 }
 
-function Checkbox({ handleChange, forWhom, price }: CheckboxProps) {
-  const { tricountId } = useParams<keyof TriCountRouteParams>() as TriCountRouteParams
+function Checkbox({ handleChange, forWhom, price, symbol }: CheckboxProps) {
+  const { tricountId } = useParams<
+    keyof TriCountRouteParams
+  >() as TriCountRouteParams
   const eachTriCount = useEachTriCount(tricountId)
   const { participators } = eachTriCount
 
@@ -45,7 +48,11 @@ function Checkbox({ handleChange, forWhom, price }: CheckboxProps) {
             />
             <span>{person}</span>
           </div>
-          <div>{forWhom.includes(person) ? `${share}$` : ''}</div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: forWhom.includes(person) ? `${share}${symbol}` : '',
+            }}
+          />
         </label>
       ))}
     </>

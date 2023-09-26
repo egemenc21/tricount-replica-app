@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
   linkWithPopup,
   linkWithCredential,
-  EmailAuthProvider, 
+  EmailAuthProvider,
 } from 'firebase/auth'
 import { getAnalytics } from 'firebase/analytics'
 import {
@@ -201,7 +201,8 @@ export const removeTriCountFromCollection = async (
 }
 
 export const createUserDocumentFromAuth = async (
-  userAuth: User,  
+  userAuth: User,
+  displayName: string
 ): Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!userAuth) return
 
@@ -209,7 +210,7 @@ export const createUserDocumentFromAuth = async (
   const userSnapShot = await getDoc(userDocRef)
 
   if (!userSnapShot.exists()) {
-    const { email,displayName } = userAuth
+    const { email } = userAuth
     const createdAt = new Date()
     try {
       await setDoc(userDocRef, {

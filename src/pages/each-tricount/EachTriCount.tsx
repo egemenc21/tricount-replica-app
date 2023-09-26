@@ -66,8 +66,8 @@ function EachTriCount() {
           path=":expenseId"
           element={<EachExpense currencyData={eachTriCount.currencyData} />}
         />
-        <Route path=":expenseId/modify" element={<ModifyExpense />} />
-        <Route path="add-expense" element={<AddExpense />} />
+        <Route path=":expenseId/modify" element={<ModifyExpense currencyData={eachTriCount.currencyData} />} />
+        <Route path="add-expense" element={<AddExpense currencyData={eachTriCount.currencyData}/>} />
       </Routes>
     )
   )

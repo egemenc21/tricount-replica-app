@@ -8,17 +8,18 @@ import PaidBy from '../../components/paid-by/PaidBy'
 import './modify.styles.scss'
 import { updateExpenseInCollection } from '../../utils/firebase/firebase.utils'
 import { useAppDispatch, useAppSelector, useEachTriCount } from '../../hooks'
-import { Expense } from '../../store/tricounts/tricounts.types'
+import { CurrencyData, Expense } from '../../store/tricounts/tricounts.types'
 import { TriCountRouteParams } from '../../components/header-list/HeaderList'
 import { selectCurrentUser } from '../../store/user/user.selector'
 import { ExpenseRouteParams } from '../each-expense/EachExpense'
 import { selectExpenseById } from '../../store/expenses/expenses.selector'
 import { updateExpenseInExpenses } from '../../store/expenses/expenses.reducer'
-// interface ModifyProps {
 
-// }
+interface ModifyProps {
+  currencyData: CurrencyData
+}
 
-function ModifyExpense() {
+function ModifyExpense({ currencyData }: ModifyProps) {
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
   const navigate = useNavigate()
@@ -41,7 +42,7 @@ function ModifyExpense() {
   }
   const [formFields, setFormFields] = useState(defaultFormFields)
   const expense = useAppSelector(selectExpenseById(expenseId))
-  
+
   useEffect(() => {
     if (expense) {
       setFormFields(expense)
@@ -58,15 +59,15 @@ function ModifyExpense() {
     const updatedFormFields = {
       ...formFields,
       id,
-      price: +price
-    }    
+      price: +price,
+    }
 
     if (forWhom.length === 0) {
       toast.error('Please select that expense is for whom')
       return
     }
     if (user) {
-        await updateExpenseInCollection(
+      await updateExpenseInCollection(
         user.uid,
         tricountId,
         expenseId,
@@ -157,7 +158,12 @@ function ModifyExpense() {
           paidBy={paidBy}
           handleChange={handleChange}
         />
-        <Checkbox handleChange={handleChange} forWhom={forWhom} price={price} />
+        <Checkbox
+          handleChange={handleChange}
+          forWhom={forWhom}
+          price={price}
+          symbol={currencyData.symbol}
+        />
         <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
           Modify Expense
         </Button>

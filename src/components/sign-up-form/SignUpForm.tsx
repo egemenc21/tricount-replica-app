@@ -37,10 +37,8 @@ function SignUpForm() {
       const { user } = data
       if (user) {
         navigate('/home')
-        await updateProfile(user, { displayName }).catch((err) =>
-          console.log(err)
-        )
-        await createUserDocumentFromAuth(user)
+        await updateProfile(user, { displayName })
+        await createUserDocumentFromAuth(user,displayName)
       }
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {

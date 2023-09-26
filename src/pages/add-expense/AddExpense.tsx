@@ -9,12 +9,16 @@ import { useAppDispatch, useAppSelector, useEachTriCount } from '../../hooks'
 import { selectCurrentUser } from '../../store/user/user.selector'
 import { TriCountRouteParams } from '../../components/header-list/HeaderList'
 import { addExpenseToCollection } from '../../utils/firebase/firebase.utils'
-import { Expense } from '../../store/tricounts/tricounts.types'
+import { CurrencyData, Expense } from '../../store/tricounts/tricounts.types'
 import Checkbox from '../../components/checkbox/Checkbox'
 import PaidBy from '../../components/paid-by/PaidBy'
 import { addExpenseToExpenses } from '../../store/expenses/expenses.reducer'
 
-function AddExpense() {
+interface AddExpenseProps {
+  currencyData: CurrencyData
+}
+
+function AddExpense({ currencyData }: AddExpenseProps) {
   const user = useAppSelector(selectCurrentUser)
   const navigate = useNavigate()
   const { tricountId } = useParams<
@@ -39,7 +43,7 @@ function AddExpense() {
     e.preventDefault()
     const id = nanoid()
     const updatedFormFields = { ...formFields, id, price: +price }
-    
+
     // Adding expense to yourself
     // if (paidBy === forWhom.find(() => paidBy) && forWhom.length === 1) {
     //   toast.error('You can not add expense for yourself')
@@ -58,7 +62,6 @@ function AddExpense() {
         tricountId
       )
       dispatch(addExpenseToExpenses(updatedFormFields))
-      
     }
 
     navigate(`/home/${tricountId}`)
@@ -115,15 +118,15 @@ function AddExpense() {
         <label>
           <div>Amount:</div>
           <input
-          type="number"
-          inputMode="numeric"
-          className="price"
-          name="price"
-          placeholder="amount"
-          value={price}
-          onChange={handleChange}
-          required
-        />
+            type="number"
+            inputMode="numeric"
+            className="price"
+            name="price"
+            placeholder="amount"
+            value={price}
+            onChange={handleChange}
+            required
+          />
         </label>
         <label>
           <div>Date:</div>
@@ -142,7 +145,7 @@ function AddExpense() {
           paidBy={paidBy}
           handleChange={handleChange}
         />
-        <Checkbox handleChange={handleChange} forWhom={forWhom} price={price} />
+        <Checkbox handleChange={handleChange} forWhom={forWhom} price={price} symbol={currencyData.symbol}/>
         <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
           Add Expense
         </Button>
