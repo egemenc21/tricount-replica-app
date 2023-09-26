@@ -4,6 +4,8 @@ Tricount is the solution for organizing group expenses on the web, iPhone and An
 # Project Details
 For this project, I used modern frontend development tools like React, Vite, SASS, TypeScript, React-Router and Redux-Toolkit for global state management. For the backend, I used Firebase for authentication, store users, tricount groups and collections. For a better coding experience for me and the people to understand the code I used ESLint Airbnb. 
 
+# Netlify 
+To reach the website online you can follow this link: https://main--aquamarine-empanada-f3b8ca.netlify.app/
 
 # React + TypeScript + Vite
 
