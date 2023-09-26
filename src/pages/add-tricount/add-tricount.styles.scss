@@ -3,9 +3,13 @@
   height: 100vh;
 }
 .add-tricount-header {
+  color: #fff;
   justify-content: start;
   padding: 0 1rem;
   gap: 1rem;
+  a {
+    color: #fff;
+  }
 
   .add-tricount-heading {
     text-align: center;

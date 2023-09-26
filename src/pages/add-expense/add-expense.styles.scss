@@ -1,15 +1,18 @@
 @import '../../colors';
 
-
 .add-expense-section {
   background-color: #fff;
   height: 100vh;
 }
 
 .add-expense-header {
+  color: #fff;
   justify-content: start;
   padding: 0 1rem;
   gap: 1rem;
+  a {
+    color: #fff;
+  }
 
   .add-expense-heading {
     text-align: center;
@@ -36,7 +39,7 @@
     .currency {
       width: 100%;
     }
-  } 
+  }
   input,
   select {
     border-bottom: 2px solid #a1a1a1;

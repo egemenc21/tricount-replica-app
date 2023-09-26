@@ -1,4 +1,3 @@
-import triCountLogo from '../../assets/tricount_blanc.png'
 import './navigation.styles.scss'
 import { useAppSelector } from '../../hooks'
 import { selectCurrentUser } from '../../store/user/user.selector'
@@ -10,7 +9,7 @@ export default function Navigation() {
   const userEmail = user?.email
   return (
     <nav className='tricount-main-nav'>
-      <img src={triCountLogo} alt="triCountLogo" />
+      <h1 className='logo-name'>tricount</h1>
       {userEmail ? <NavAuthItem userEmail={userEmail} /> : null}
     </nav>
   )
