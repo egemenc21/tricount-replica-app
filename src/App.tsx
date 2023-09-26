@@ -11,7 +11,7 @@ import Auth from './pages/auth/Auth'
 import store from './store/store'
 import { useAppDispatch } from './hooks'
 import { setCurrentUser } from './store/user/user.reducer'
-import { createUserDocumentFromAuth } from './utils/firebase/firebase.utils'
+
 
 function App() {
   const dispatch = useAppDispatch()
@@ -20,7 +20,6 @@ function App() {
     const auth = getAuth()
     onAuthStateChanged(auth, async (user) => {
       if (user) {        
-        await createUserDocumentFromAuth(user)
         dispatch(setCurrentUser(user))
       }
     })
