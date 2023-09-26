@@ -1,6 +1,5 @@
-$primary-color: #3493d6;
-$secondary-color: #262627;
-.expense-header {
+@import '../../colors';
+ .expense-header {
   display: flex;
   flex-direction: column;
   gap: 10px;

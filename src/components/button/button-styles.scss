@@ -1,8 +1,4 @@
-$primary-color: #3493d6;
-$secondary-color: #262627;
-$tertiary-color: #0c5183;
-$fourth-color: #9e2525;
-$fifth-color: #d62b2b;
+@import '../../colors';
 
 .btn {
   padding: 0.75rem 2.5rem;
@@ -27,7 +23,7 @@ $fifth-color: #d62b2b;
   background-color: $fourth-color;
 }
 .google-btn {
-  background-color: $fifth-color;  
+  background-color: $fifth-color;
 }
 .google-btn:hover {
   background-color: $fourth-color;

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import './tricount-list-item.styles.scss'
+import { FaTrashAlt } from 'react-icons/fa'
 import { removeTriCountFromCollection } from '../../utils/firebase/firebase.utils'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { selectCurrentUser } from '../../store/user/user.selector'
 import { removeTriCountFromTriCounts } from '../../store/tricounts/tricounts.reducer'
-import Button, { BUTTON_TYPE_CLASSES } from '../button/Button'
 
 interface TriCountListItemProps {
   title: string
@@ -22,9 +22,11 @@ function TriCountListItem({
   const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    if (user) {
-      dispatch(removeTriCountFromTriCounts(id))
-      await removeTriCountFromCollection('tricounts', user.uid, id)
+    if (window.confirm('Are you sure you want to delete ?')) {
+      if (user) {
+        dispatch(removeTriCountFromTriCounts(id))
+        await removeTriCountFromCollection('tricounts', user.uid, id)
+      }
     }
   }
 
@@ -36,14 +38,7 @@ function TriCountListItem({
             <h2>{title}</h2>
             <p>{description}</p>
           </div>
-
-          <Button
-            buttonType={BUTTON_TYPE_CLASSES.base}
-            type="button"
-            onClick={handleOnClick}
-          >
-            x
-          </Button>
+          <FaTrashAlt size={20} onClick={handleOnClick} />
         </li>
       </Link>
     </div>

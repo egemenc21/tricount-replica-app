@@ -1,6 +1,5 @@
 import './header.styles.scss'
-import { AiOutlineArrowLeft, AiOutlineSearch, AiFillBell } from 'react-icons/ai'
-import { BsThreeDotsVertical } from 'react-icons/bs'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { Link, Outlet, useParams } from 'react-router-dom'
 import HeaderList, {
   TriCountRouteParams,
@@ -36,11 +35,6 @@ function Header() {
                   participators.toString().replace(/,/g, ', ').trim()}
               </p>
             </div>
-          </div>
-          <div className="icon-container">
-            <AiOutlineSearch size={25} />
-            <AiFillBell size={25} />
-            <BsThreeDotsVertical size={25} />
           </div>
         </div>
         <HeaderList />

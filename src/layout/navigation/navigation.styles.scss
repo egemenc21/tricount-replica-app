@@ -1,4 +1,5 @@
 $primary-color: #3493d6;
+
 nav {
   background-color: $primary-color;
   display: flex;
@@ -12,7 +13,7 @@ nav {
   }
 }
 @media screen and (max-width: 400px) {
-  nav {
+  .tricount-main-nav {
     flex-direction: column;
   }
 }

@@ -9,7 +9,7 @@ export default function Navigation() {
   const user = useAppSelector(selectCurrentUser)
   const userEmail = user?.email
   return (
-    <nav>
+    <nav className='tricount-main-nav'>
       <img src={triCountLogo} alt="triCountLogo" />
       {userEmail ? <NavAuthItem userEmail={userEmail} /> : null}
     </nav>

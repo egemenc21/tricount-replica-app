@@ -1,5 +1,5 @@
-$primary-color: #3493d6;
-$secondary-color: #262627;
+@import '../../colors';
+
 .header {
   padding-top: 0.5rem;
   background-color: $primary-color;
@@ -23,10 +23,6 @@ $secondary-color: #262627;
       flex-direction: column;
       font-size: 0.75rem;
     }
-    .icon-container {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-    }
+   
   }
 }

@@ -1,3 +1,5 @@
+@import '../../colors';
+
 .expenses-list-item {
   display: flex;
   justify-content: space-between;
@@ -19,19 +21,11 @@
     align-items: center;
     justify-content: center;
   }
-  .expenses-date{
+  .expenses-date {
     opacity: 70%;
   }
   span {
     font-weight: 600;
   }
-  button{
-    padding: 0;
-    height: 30px;
-    width: 30px;
-    font-size: 1rem;
-    text-transform: capitalize;
-  }
   
 }
-
