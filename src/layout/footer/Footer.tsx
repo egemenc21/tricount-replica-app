@@ -25,7 +25,9 @@ function Footer({ symbol }: FooterProps) {
             <li
               key={userId}
               dangerouslySetInnerHTML={{
-                __html: `${userId}: ${symbol}${totalExpensesOnEachUser[userId]}`,
+                __html: `${userId}: ${symbol}${totalExpensesOnEachUser[
+                  userId
+                ].toFixed(2)}`,
               }}
             />
           ))}
