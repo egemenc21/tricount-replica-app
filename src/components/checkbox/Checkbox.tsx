@@ -50,7 +50,7 @@ function Checkbox({ handleChange, forWhom, price, symbol }: CheckboxProps) {
           </div>
           <div
             dangerouslySetInnerHTML={{
-              __html: forWhom.includes(person) ? `${share}${symbol}` : '',
+              __html: forWhom.includes(person) ? `${symbol}${share}` : '',
             }}
           />
         </label>
