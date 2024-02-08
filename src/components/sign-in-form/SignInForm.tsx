@@ -91,6 +91,7 @@ function SignInForm() {
           className="auth-input"
           placeholder="Your password"
         />
+        <div>Test:  demo@example.com - pw:123456</div>
         <div className="button-container">
           <Button buttonType={BUTTON_TYPE_CLASSES.base}>Sign In</Button>
           <Button
