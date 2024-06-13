@@ -10,6 +10,10 @@ To reach the website online you can follow this link: https://main--aquamarine-e
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+You can also checkout how the app works via this LinkedIn link:
+https://www.linkedin.com/posts/egemenc_hello-everyone-im-excited-to-share-with-activity-7112764959670870017-kDoG?utm_source=share&utm_medium=member_desktop
+
 ![tricountReplica](https://github.com/egemenc21/tricount-replica-app/assets/112320683/0230db88-c1ea-41f3-8583-53a56a56880f)
 
 
