@@ -7,8 +7,6 @@ For this project, I used modern frontend development tools like React, Vite, SAS
 # Netlify 
 To reach the website online you can follow this link: https://main--aquamarine-empanada-f3b8ca.netlify.app/
 
-# React + TypeScript + Vite
-
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 You can also checkout how the app works via this LinkedIn link:
